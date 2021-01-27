@@ -1,0 +1,255 @@
+% -------------------------------------------------------------------------
+% NSRR canonical signal definitions
+% version v0.1
+% 15-June-2020
+% -------------------------------------------------------------------------
+
+
+% -------------------------------------------------------------------------
+%
+% This file is designed to be used by the Luna command CANONICAL
+%   luna s.lst -s CANONICAL file=<this file> group=<group>
+%
+% It defines for every study canonical channels relevant to a typical PSG
+%     EEG  (right central EEG, mastoid reference, C4/M1) 
+%     LOC  (left eye, right mastoid reference, LOC/M2)  
+%     ROC  (right eye, right mastoid reference, ROC/M2)  ?? confirm
+%     EMG  ??
+%     ECG  ?? 
+%     < others >
+%
+%
+% These will generated, labeled cs_EEG, cs_LOC, etc, with 
+% re-referencing and resampling as necessary
+%
+% Note: this command uses any aliases already specified in the usual manner
+% e.g. if some SHHS C4 channels are labeled 'EEG(sec)' then we 
+% can still use the form 'EEG2' below, as long as a standard 
+% alias file is specified (via @includes) for that project/EDF
+%
+% Below, each non-commented line should have either five or six tab-delimited 
+% columns:
+%
+%  GROUP   TYPE   CHANNEL   REF   SR   (NOTES)
+%
+%  GROUP   matches the 'group' option on the CANONICAL command, to select
+%          the particular set of canonical channels, i.e. typically 'study'
+%
+%  TYPE    currently, one of: EEG, LOC, ROC, EMG or ECG
+%
+%  CHANNEL the channel that represents the canonical form
+% 
+%  REF     if needed, the reference channel to achieve canonical form
+%          if not needed, enter period '.'
+%
+%  SR      sample rate to this canonical channel
+%
+%  NOTES   (optional) any notes about the montage (i.e. if nonstandard)
+%
+% 
+% ------------------------------------------------------------------------ 
+% 
+
+
+% Example usage:
+
+TEST	EEG	C4,EEG2	.	100	If 'C4' not present, look for 'EEG2' instead
+TEST	EMG	Lchin	Rchin	100
+TEST	LOC	LOC	M2,A2	100	If 'M2' not present, look for 'A2' instead
+TEST	ROC	E2,ROC	M2,A2	100	If 'E2' not present, look for 'ROC' instead
+TEST	ECG	ECG	.	100
+
+% It is possible to have different rules, by listing on
+% different lines; Luna will select the first rule that matches.
+% For example, if within a given cohort some individuals have left/right
+% EMG as separate channels, but other individuals have a single channel
+% that is already left-right referenced.   i.e. for a 'canonical' EMG
+% in the first instance you'd want to take 'L' and 'R' as two channels, 
+% and perform the re-referencing; in the second instance, you'd want to 
+% take the already re-referenced channel as is:
+
+
+TEST	EMG	lchin	rchin	100
+TEST	EMG	chin	.	100
+
+% i.e. if Luna can't find 'lchin' and 'rchin' in the data, it will look
+% for 'chin' instead. 
+
+% Notes:
+
+% 1) Using a comma-delimited list on the same rule only means to take
+%  the first available% channel of that label; you cannot have a '.'
+%  included as part of a reference channel list
+%
+% TEST EEG  C4   M1,.  100      <--- not allowed
+
+% 2) Do not assume that values are paired for signal and reference 
+%   comma-delimited lists: i.e. 
+% TEST EEG C4,C3  M1,M2   100
+%   does *not* imply that Luna will take either C4/M1, or else C3/M2, 
+%   (or nothing, if none of these exist)
+%   Rather, here, it would take C3 referenced against M1, if say, only C3 and M1
+%   were present in the EDF.  To specify the logic of 'C4/M1' or 'C3/M2' 
+%   instead use two different rules
+% TEST EEG C4  M1   100
+% TEST EEG C3  M2   100
+
+% 3) Do not replicate channel aliases in these files; i.e. these is intended to 
+%  be used with standard Luna channel aliases from @include files.  e.g. if EEG2 
+%  is already an alias for EEG(sec), "EEG 2", "EEG (sec)" , "EEG sec" 
+% 
+%  alias  EEG2|EEG(sec)|"EEG 2"|"EEG (sec)"|"EEG sec" 
+%
+%   then just use the form here
+%
+%  TEST EEG  EEG2 .  100
+%
+% i.e. no need to add all the aliases in, i.e. assuming the Luna command includes them:
+%
+% luna s.list @sig.alias -s CANONICAL file={this-file} group=TEST
+
+%ABC
+
+ABC	EEG	C4	M1	100
+ABC	EMG	lchin	rchin	100
+ABC	LOC	E1	M2	100
+ABC	ROC	E2	M2	100
+ABC	ECG	ECG1	ECG2	100
+
+%BESTAIR
+
+BESTAIR	EEG	C4	M1	100
+BESTAIR	EEG	C4_M1	.	100
+BESTAIR	EMG	chin	.	100
+BESTAIR	EMG	cchin_l	.	100
+BESTAIR	EMG	rchin	lchin	100
+BESTAIR	EMG	rchin_c	.	100
+BESTAIR	LOC	E1	.	100
+BESTAIR	ROC	E2	.	100
+BESTAIR	ECG	ECG	.	100
+
+%CCSHS
+
+CCSHS	EEG	C4	M1	100
+CCSHS	EMG	EMG3	EMG2	100
+CCSHS	LOC	E1	M2	100
+CCSHS	ROC	E2	M2	100
+CCSHS	ECG	ECG1	ECG2	100
+
+%CFS
+
+CFS	EEG	C4	M1	100
+CFS	EMG	EMG1	EMG2	100
+CFS	LOC	E1,LOC	M2	100
+CFS	ROC	E2,ROC	M2	100
+CFS	ECG	ECG1	ECG2	100
+
+%CHAT
+
+CHAT	EEG	C4	M1	100
+CHAT	EMG	rchin	lchin	100
+CHAT	LOC	E1	M2	100
+CHAT	ROC	E2	M2	100
+CHAT	ECG	ECG1	ECG2	100
+
+%HAASSA
+
+HAASSA	EEG	C4_M1	.	100
+HAASSA	EMG	EMG	.	100
+HAASSA	LOC	E1	.	100
+HAASSA	ROC	E2	.	100
+HAASSA	ECG	ECG	.	100
+
+%HEARTBEAT
+
+HEARTBEAT	ECG	ECG	.	100
+
+%HOMEPAP
+
+HOMEPAP	EEG	C4	M1	100
+HOMEPAP	EMG	rchin	lchin	100
+HOMEPAP	LOC	E1	M2	100
+HOMEPAP	ROC	E2	M2	100
+HOMEPAP	ECG	ECG1	ECG2	100
+
+%MrOS
+
+MROS	C4	M1	.	100
+MROS	LOC	LOC	.	100
+MROS	ROC	ROC	.	100
+MROS	EMG	EMG	.	100
+MROS	ECG	ECG	.	100
+
+
+%MESA
+
+MESA	EEG	C4_M1	.	100
+MESA	EMG	EMG	.	100
+MESA	LOC	E1	.	100
+MESA	ROC	E2	.	100
+MESA	ECG	ECG	.	100
+
+
+%MNC
+
+MNC	EEG	C4	M1	100
+MNC	EEG	C4	.	100
+MNC	EMG	rchin	lchin	100
+MNC	EMG	chin	.	100	Using linked EMG
+MNC	EMG	cchin_l	.	100	Using linked EMG
+MNC	LOC	E1	M2	100
+MNC	LOC	E1	.	100
+MNC	ROC	E2	M2	100
+MNC	ROC	E2	.	100
+MNC	ECG	ECG1	ECG2,ECG3	100
+MNC	ECG	ECG,ECG2	.	100
+MNC	ECG	ECG1_2	.	100	Using linked ECG
+
+%MROS
+
+MROS	EEG	C4	M1	100
+MROS	EEG	C3	M2	100
+MROS	EMG	rchin	lchin	100
+MROS	LOC	E1	M2	100
+MROS	ROC	E2	M2	100
+MROS	ECG	ECG1	ECG2	100
+
+%NUMOM2B
+
+NUMOM2B	ECG	ECG	.	100
+
+%PATS
+
+PATS	EEG	C4	M1	100
+PATS	EMG	rchin	lchin	100
+PATS	LOC	E1	M2	100
+PATS	ROC	E2	M2	100
+PATS	ECG	ECG1	ECG2	100
+
+%SHHS
+
+SHHS	EEG	EEG	.	100
+SHHS	EMG	EMG	.	100
+SHHS	LOC	E1	M2	100
+SHHS	ROC	E2	M2	100
+SHHS	ECG	ECG	.	100
+
+%SOF
+
+SOF	EEG	C4	M1	100
+SOF	EMG	rchin	lchin	100
+SOF	LOC	E1	M2	100
+SOF	ROC	E2	M2	100
+SOF	ECG	ECG1	ECG2	100
+
+%WSC
+
+WSC	EEG	C4_M1,C4_AVG	.	100
+WSC	EEG	C3_M2,C3_AVG	.	100	Using C3
+WSC	EMG	cchin_l	.	100
+WSC	EMG	cchin_r	.	100
+WSC	LOC	E1	.	100
+WSC	ROC	E2	.	100
+WSC	ECG	ECG	.	100
+WSC	ECG	ECG1_2	.	100
+WSC	ECG	ECG1_3	.	100

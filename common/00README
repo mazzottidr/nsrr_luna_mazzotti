@@ -1,0 +1,33 @@
+
+NSRR resources
+
+annots.alias		Annotation remapping terms
+
+sigs.alias		EDF channel alias terms  
+
+sigs.canonical  	For use with Luna CANONICAL command
+
+sigs.types		Defines channel types: EEG, EMG, etc (for plotting)
+
+
+The common/ folder contains information that is common to all NSRR studies
+
+The studies/*/ folders contain study-specific information
+
+Expected usage is that both common and study-specific information may be combined, 
+ and if there are differences, the study-specific information will be preferred
+ i.e. if using Luna @includes
+ 
+ luna s.lst @~/nsrr/common/sigs.alias @~/nsrr/studies/xxx/sigs.alias 
+
+Here, any additional/different aliases will overwrite the common values
+
+Hint: in practice, when working with a given dataset, probably useful to define
+a shell variable to keep all these
+
+inc="@~/nsrr/common/sigs.alias @~/nsrr/studies/xxx/sigs.alias @~/nsrr/common/annots.alias @~/nsrr/studies/xxx/annots.alias"
+
+and then
+
+ luna s.lst @${inc} -o out.db < commands 
+
