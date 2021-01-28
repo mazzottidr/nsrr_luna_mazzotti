@@ -1,3 +1,3 @@
-alias	EEG|EEG1"
-alias	EEG2|EEG(sec)|EEG 2|EEG(SEC)|EEG sec
+alias	EEG|EEG1
+alias	EEG2|EEG(sec)|EEG_2|EEG(SEC)|EEG_sec
 eeg	EEG,EEG2
