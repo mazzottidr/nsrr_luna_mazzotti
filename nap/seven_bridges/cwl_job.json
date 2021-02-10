@@ -1,0 +1,76 @@
+{
+  "class": "CommandLineTool",
+  "cwlVersion": "v1.1",
+  "$namespaces": {
+    "sbg": "https://sevenbridges.com"
+  },
+  "baseCommand": [
+    "/build/nap/nap.sh"
+  ],
+  "inputs": [
+    {
+      "loadListing": "deep_listing",
+      "id": "INPUT_folder",
+      "type": "Directory",
+      "inputBinding": {
+        "shellQuote": false,
+        "position": 2
+      }
+    },
+    {
+      "id": "nap_conf",
+      "type": "File",
+      "inputBinding": {
+        "shellQuote": false,
+        "position": 3
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "nap_output_directory",
+      "type": "Directory?",
+      "outputBinding": {
+        "glob": "${     return \"*_output\" }",
+        "loadListing": "deep_listing"
+      }
+    },
+    {
+      "id": "nap_output_file",
+      "type": "File?",
+      "outputBinding": {
+        "glob": "*.tar.gz"
+      }
+    }
+  ],
+  "label": "",
+  "arguments": [
+    {
+      "prefix": "",
+      "shellQuote": false,
+      "position": 0,
+      "valueFrom": "COHORT"
+    }
+  ],
+  "requirements": [
+    {
+      "class": "ShellCommandRequirement"
+    },
+    {
+      "class": "LoadListingRequirement"
+    },
+    {
+      "class": "DockerRequirement",
+      "dockerPull": "shyamlab/lunanap2:latest"
+    },
+    {
+      "class": "InitialWorkDirRequirement",
+      "listing": [],
+      "writable": true
+    },
+    {
+      "class": "InlineJavascriptRequirement"
+    }
+  ],
+  "stdout": "$(inputs.INPUT_folder.path + \"/nap/nap_wrapper_log.txt\")"
+}

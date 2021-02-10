@@ -110,4 +110,8 @@
 # --> PSD-tab.RData
 
 
-
+# In the alternate configuration file,
+# NAP_OUTPUT variable can be helpful in use-cases (ex: Seven Bridges) where there is a need to write output to the home folder
+# NAP_OUTPUT can have value as "FILE" or "DIRECTORY" (in ALL CAPS)
+# If value is "FILE", then NAP outputs a  .tar.gz file in the home folder with the file name as a combination of Run name argument and job start time
+# If values is "DIRECTORY", then NAP outputs a directory in the home folder, with folder name as a combination of Run name argument and job start time
