@@ -11,7 +11,7 @@ Aim of this folder is to provide Sleep researchers with resources to run NAP on 
 Following are needed to run NAP in Seven Bridges Platform
 1. User account in Seven Bridges platform
 2. Sleep cohorts as private files within a Seven Bridges project or public dataset info
-3. User-defined NAP Configuration file 
+3. User-defined NAP Configuration file (refer example file nap_7b.conf) 
 
 
 ## How to run NAP
