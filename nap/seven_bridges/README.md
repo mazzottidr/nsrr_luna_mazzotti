@@ -23,8 +23,7 @@ Following are needed to run NAP in Seven Bridges Platform
    Select the new app -> Click Edit -> Click on Code
    Replace all the default content listed in the Code section with NAP CWL json file content
 
-3. As the label is listed as "nap", tool will be renamed to "nap". If you want to rename the tool name, you will have to update the "label" key value with the new tool name
-  Also, update the cohort info. For example if dataset is ABC then go to arguments section and update valueFrom as "ABC"
+3. As the label is listed as "nap", tool will be renamed to "nap". If you want to rename the tool name, you will have to update the "label" key value with the new tool name. Also, update the cohort info, for example if dataset is ABC then go to arguments section and update valueFrom as "ABC"
 
 4. Click on Run and Save button at the top right corner.
 
