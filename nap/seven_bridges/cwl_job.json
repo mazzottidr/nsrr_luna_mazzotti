@@ -71,6 +71,5 @@
     {
       "class": "InlineJavascriptRequirement"
     }
-  ],
-  "stdout": "$(inputs.INPUT_folder.path + \"/nap/nap_wrapper_log.txt\")"
+  ]
 }
