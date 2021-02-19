@@ -5,12 +5,17 @@
     "sbg": "https://sevenbridges.com"
   },
   "baseCommand": [
-    "/build/nap/nap.sh"
+    "NAP_LUNA_ARGS=\"@cfs_sigs.alias\"",
+    "NAP_DEF_DIR=\"common\""
   ],
   "inputs": [
     {
+      "id": "study_sigs_alias",
+      "type": "File?"
+    },
+    {
       "loadListing": "deep_listing",
-      "id": "INPUT_folder",
+      "id": "input_dir",
       "type": "Directory",
       "inputBinding": {
         "shellQuote": false,
@@ -18,28 +23,40 @@
       }
     },
     {
-      "id": "nap_conf",
+      "id": "input_conf",
       "type": "File",
       "inputBinding": {
         "shellQuote": false,
         "position": 3
       }
+    },
+    {
+      "loadListing": "deep_listing",
+      "id": "common_dir",
+      "type": "Directory?"
     }
   ],
   "outputs": [
     {
-      "id": "nap_output_directory",
+      "id": "wrapper_output",
+      "type": "File?",
+      "outputBinding": {
+        "glob": "*.txt"
+      }
+    },
+    {
+      "id": "nap_output_tar",
+      "type": "File?",
+      "outputBinding": {
+        "glob": "*.tar.gz"
+      }
+    },
+    {
+      "id": "nap_output_dir",
       "type": "Directory?",
       "outputBinding": {
         "glob": "${     return \"*_output\" }",
         "loadListing": "deep_listing"
-      }
-    },
-    {
-      "id": "nap_output_file",
-      "type": "File?",
-      "outputBinding": {
-        "glob": "*.tar.gz"
       }
     }
   ],
@@ -49,7 +66,19 @@
       "prefix": "",
       "shellQuote": false,
       "position": 0,
-      "valueFrom": "COHORT"
+      "valueFrom": "/build/nap/nap.sh"
+    },
+    {
+      "prefix": "",
+      "shellQuote": false,
+      "position": 1,
+      "valueFrom": "CFS"
+    },
+    {
+      "prefix": "",
+      "shellQuote": false,
+      "position": 4,
+      "valueFrom": ">> nap_wrapper_log.txt 2>&1"
     }
   ],
   "requirements": [
@@ -60,13 +89,26 @@
       "class": "LoadListingRequirement"
     },
     {
+      "class": "ResourceRequirement",
+      "ramMin": 100,
+      "coresMin": 1
+    },
+    {
       "class": "DockerRequirement",
       "dockerPull": "shyamlab/lunanap2:latest"
     },
     {
       "class": "InitialWorkDirRequirement",
-      "listing": [],
-      "writable": true
+      "listing": [
+        {
+          "entry": "${\n    return inputs.study_sigs_alias\n}",
+          "writable": false
+        },
+        {
+          "entry": "${\n    return inputs.common_dir \n}",
+          "writable": false
+        }
+      ]
     },
     {
       "class": "InlineJavascriptRequirement"
