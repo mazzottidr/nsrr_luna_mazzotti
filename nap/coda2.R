@@ -10,7 +10,7 @@ args = commandArgs(trailingOnly=TRUE)
 # -------------------------------------------------------------------------------
 
 if ( length(args) != 3 )
- stop( "usage: compile-tables.R <nap-script-folder> <nap-resources-folder> <nap-output-folder>" )
+ stop( "usage: coda2.R <nap-script-folder> <nap-resources-folder> <nap-output-folder>" )
 
 # ensure trailing folder delimiter
 

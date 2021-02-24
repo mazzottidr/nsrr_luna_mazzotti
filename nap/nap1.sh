@@ -508,7 +508,7 @@ echo "Compiling tables into RData files..." >> $LOG
 #      or  path/to/folder/text.txt-fig.RData
 # luna-shiny then automatically loads any *-tab.RData and *-fig.RData files
 
-# add fextract() calls into compile-tables.R to create particular 
+# add fextract() calls into coda2.R to create particular 
 # also see example for PSD plots for how to save / attach images
 #  these point to .png files, which can either be created in coda2.R based
 #  on summary stats, or indpendently (in which case a *-fig.RData file is created
