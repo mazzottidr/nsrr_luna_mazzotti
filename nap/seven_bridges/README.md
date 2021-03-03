@@ -11,7 +11,7 @@ Aim of this folder is to provide Sleep researchers with resources to run NAP on 
 Following are needed to run NAP in Seven Bridges Platform
 1. User account in Seven Bridges platform
 2. Sleep cohorts as private files within a Seven Bridges project or public dataset info
-3. User-defined NAP Configuration file 
+3. User-defined NAP Configuration file (refer to example file nap_7b.conf in the repo)
 
 
 ## How to run NAP
@@ -23,8 +23,10 @@ Following are needed to run NAP in Seven Bridges Platform
    Select the new app -> Click Edit -> Click on Code
    Replace all the default content listed in the Code section with NAP CWL json file content
 
-3. As the label is listed as "nap", tool will be renamed to "nap". If you want to rename the tool name, you will have to update the "label" key value with the new tool name
-  Also, update the cohort info. For example if dataset is ABC then go to arguments section and update valueFrom as "ABC"
+3. Update the following:
+ - As the label is listed as "nap", tool will be renamed to "nap". If you want to rename the tool name, you will have to update the "label" key value with the new tool name.
+ - As NAP configuration variables NAP_LUNA_ARGS and NAP_DEF_DIR have to be passed at run time (for non-NSRR studies), you can update in baseCommand section with these values. Also, make sure that at run time of the app, inputs provided to study_sigs_alias and common_dir match with NAP_LUNA_ARGS file and NAP_DEF_DIR directory respectively.
+ - Update the cohort info, for example if dataset is ABC then go to 2nd element(position 1) in arguments section and  update valueFrom as "ABC"
 
 4. Click on Run and Save button at the top right corner.
 

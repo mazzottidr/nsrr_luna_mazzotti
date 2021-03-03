@@ -192,11 +192,11 @@ done
 # NAP_OUTPUT argument is helpful in use-cases (ex: Seven Bridges) where there is a need to write output to the home folder
 if [[ ! -z "${NAP_OUTPUT}" ]]; then
   if [[ "${NAP_OUTPUT}" == "FILE" ]]; then
-    # Create NAP output as tar file with run name and start time info, in the home folder
+    echo "Creating NAP output as tar file with run name and start time info, in the home folder"
     output_file=~/${run}'_'${start_time}'_output.tar.gz'
-    tar cvzf ${output_file} ${output} && rm -R ${output}
+    tar cvzf ${output_file} -C ${output} . && rm -R ${output}
   elif [[ "${NAP_OUTPUT}" == "DIRECTORY" ]]; then
-    # Create an output directory with run name and start time info, in the home folder
+    echo "Creating an output directory with run name and start time info, in the home folder"
     output_folder=~/${run}'_'${start_time}'_output'
     mkdir -p ${output_folder}
     mv ${output}* ${output_folder}
