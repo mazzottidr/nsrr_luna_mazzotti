@@ -11,14 +11,14 @@ id=`cut -d'/' -f7 <<< $f | cut -d'.' -f1 | awk '{print substr($1,1, length($1)-8
 
  
 tr -d '\r' <  $f | sed 's/ - /\t/g' | awk -F"\t" \
-   ' BEGIN { printf "# desat	| SaO2 desaturations |	dur[num] min[num] drop[num]\n"; \
-             printf "# arousal_spontaneous | Spon Arousal \n"; \
-             printf "# arousal_respiratory | Resp Arousal \n"; \
-             printf "# arousal_plm | PLM Arousal \n"; \
-             printf "# hypopnea | Hypopnea | dur[num] \n"; \
-             printf "# apnea_obstructive | Obstructive Apnea | dur[num] \n"; \
-             printf "# apnea_central | Central Apnea | dur[num] \n"; \
-             printf "# apnea_mixed | Mixed Apnea | dur[num] \n"; \
+   ' BEGIN { printf "# desat | SaO2 desaturations | dur[num] min[num] drop[num]\n"; \
+             printf "# arousal_spontaneous | Spon Arousal | dur[num]\n"; \
+             printf "# arousal_respiratory | Resp Arousal | dur[num]\n"; \
+             printf "# arousal_plm | PLM Arousal | dur[num]\n"; \
+             printf "# hypopnea | Hypopnea | dur[num] desat[num]\n"; \
+             printf "# apnea_obstructive | Obstructive Apnea | dur[num] desat[num] \n"; \
+             printf "# apnea_central | Central Apnea | dur[num] desat[num]\n"; \
+             printf "# apnea_mixed | Mixed Apnea | dur[num] desat[num]\n"; \
              printf "# lm | LM | dur[num] \n"; \
              printf "# lights_off| LIGHTS OUT \n"; \
              printf "# lights_on | LIGHTS ON \n"; \
