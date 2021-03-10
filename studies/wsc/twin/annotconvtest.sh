@@ -45,7 +45,8 @@ tr -d '\r' <  $f | sed 's/ - /\t/g' | awk -F"\t" \
              printf "# lights_off| instance | channel | start | stop | elapsed[num]\n"; \
              printf "# lights_on | instance | channel | start | stop | elapsed[num]\n"; \
              printf "# paused| instance | channel | start | stop | elapsed[num]\n"; \
-             printf "# startrecording | instance | channel | start | stop | elapsed[num]\n"; } \
+             printf "# startrecording | instance | channel | start | stop | elapsed[num]\n"; \
+             printf "# misc | instance | channel | start | stop | notes\n"; } \
          $2 == "DESATURATION" {split($3,a,":");split($4,b," ");split($5, c, " "); print "desat",".",".",$1,timeadd($1,a[2]),"elapsed="elapsed_time($1)"|min="b[2]"|drop="c[2]} \
          $2 == "AROUSAL" && $4 == "SPONTANEOUS" {split($3,a, ":"); print "arousal_spontaneous",".",".",$1,timeadd($1,a[2]),"elapsed="elapsed_time($1)} \
          $2 == "AROUSAL" && $4 == "RESPIRATORY EVENT" {split($3,a,":"); print "arousal_respiratory",".",".",$1,timeadd($1,a[2]),"elapsed="elapsed_time($1)} \
@@ -59,5 +60,6 @@ tr -d '\r' <  $f | sed 's/ - /\t/g' | awk -F"\t" \
          $2 == "LIGHTS ON" {print "lights_on",".",".",$1,$1,"elapsed="elapsed_time($1)} \
          $2 == "PAUSED" {print "paused",".",".",$1,$1,"elapsed="elapsed_time($1)} \
          $2 == "START RECORDING" {split($1,s_t,":");  set_start((s_t[1] * 3600) + (s_t[2] * 60) + s_t[3])} \
-         $2 == "START RECORDING" {print "startrecording",".",".",$1,$1,"elapsed="elapsed_time($1)} ' OFS="\t" > ${DIR}/${id}.annot
+         $2 == "START RECORDING" {print "startrecording",".",".",$1,$1,"elapsed="elapsed_time($1)} \
+         $2 != "START RECORDING" && $2 != "RESPIRATORY EVENT" && $2!= "DESATURATION" && $2!= "STAGE" && $2!= "AROUSAL" && $2!= "LM" && $2!= "LIGHTS OUT" && $2!= "LIGHTS ON" && $2!= "PAUSED" {print "misc",".",".",$1,$1,$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9" "$10" "$11" "$12" "$13} ' OFS="\t" > ${DIR}/${id}.annot
 done 
