@@ -5,3 +5,9 @@ CHAT	EMG	rchin	lchin	100	mV
 CHAT	LOC	E1	M2	100	uV
 CHAT	ROC	E2	M2	100	uV
 CHAT	ECG	ECG1	ECG2	100	mV
+CHAT	CAN	nas_pres	.	100	.
+CHAT	TRM	flow	.	100	.
+CHAT	THX	thorax	.	100	.
+CHAT	ABD	abdomen	.	100	.
+CHAT	OXY	spo2	.	4	.
+CHAT	POS	position	.	1	.

@@ -5,3 +5,9 @@ SHHS	EMG	EMG	.	100	mV
 SHHS	LOC	E1	M2	100	uV
 SHHS	ROC	E2	M2	100	uV
 SHHS	ECG	ECG	.	100	mV
+SHHS	TRM	flow	.	100	.
+SHHS	TRM	therm	.	100	.
+SHHS	THX	thorax	.	100	.
+SHHS	ABD	abdomen	.	100	.
+SHHS	OXY	spo2	.	4	.
+SHHS	POS	position	.	1	.

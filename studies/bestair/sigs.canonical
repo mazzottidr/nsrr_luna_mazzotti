@@ -9,3 +9,9 @@ BESTAIR	EMG	rchin_c	.	100	mV
 BESTAIR	LOC	E1	.	100	uV
 BESTAIR	ROC	E2	.	100	uV
 BESTAIR	ECG	ECG	.	100	mV
+BESTAIR	CAN	nas_pres	.	100	.
+BESTAIR	TRM	therm	.	100	.
+BESTAIR	THX	thorax	.	100	.
+BESTAIR	ABD	abdomen	.	100	.
+BESTAIR	OXY	spo2	.	4	.
+BESTAIR	POS	position	.	1	.
