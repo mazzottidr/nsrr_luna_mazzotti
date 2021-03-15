@@ -48,3 +48,4 @@ Successful NAP CWL run output_options
 1. In the app, run_label may have to be updated from time to time for different Cohorts to correctly reflect the (to-be-run-on) Cohort's canonical information from the common/sigs.canonical file. To make the change, 
  - Option 1: Update through Visual editor - Click on Edit the app -> go to Visual editor -> replace the argument value with the appropriate Cohort identifier
  - Option 2: Update through code - update valueFrom under arguments with the appropriate Cohort identifier
+ 
