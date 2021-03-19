@@ -5,3 +5,9 @@ SOF	EMG	rchin	lchin	100	mV
 SOF	LOC	E1	M2	100	uV
 SOF	ROC	E2	M2	100	uV
 SOF	ECG	ECG1	ECG2	100	mV
+SOF	CAN	nas_pres	.	100	.
+SOF	TRM	flow	.	100	.
+SOF	THX	thorax	.	100	.
+SOF	ABD	abdomen	.	100	.
+SOF	OXY	spo2	.	4	.
+SOF	POS	position	.	1	.

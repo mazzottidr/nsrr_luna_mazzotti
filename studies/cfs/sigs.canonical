@@ -5,3 +5,9 @@ CFS	EMG	EMG1	EMG2	100	uV
 CFS	LOC	E1,LOC	M2	100	mV
 CFS	ROC	E2,ROC	M2	100	mV
 CFS	ECG	ECG1	ECG2	100	mV
+CFS	CAN	nas_pres	.	100	.
+CFS	TRM	flow	.	100	.
+CFS	THX	thorax	.	100	.
+CFS	ABD	abdomen	.	100	.
+CFS	OXY	spo2	.	4	.
+CFS	POS	position	.	1	.

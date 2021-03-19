@@ -9,3 +9,9 @@ WSC	ROC	E2	.	100	uV
 WSC	ECG	ECG	.	100	mV
 WSC	ECG	ECG1_2	.	100	mV
 WSC	ECG	ECG1_3	.	100	mV
+WSC	CAN	nas_pres	.	100	.
+WSC	TRM	therm	.	100	.
+WSC	THX	thorax	.	100	.
+WSC	ABD	abdomen	.	100	.
+WSC	OXY	spo2	.	4	.
+WSC	POS	position	.	1	.
