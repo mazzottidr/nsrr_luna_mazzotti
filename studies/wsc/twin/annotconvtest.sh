@@ -25,7 +25,7 @@ tr -d '\r' <  $f | sed 's/ - /\t/g' | awk -F"\t" \
      BEGIN { printf "# desat | SaO2 desaturations | min[num] drop[num]\n"; \
              printf "# arousal_spontaneous | Spontaneous Arousal\n"; \
              printf "# arousal_respiratory | Respiratory Arousal\n"; \
-             printf "# arousal_plm | PLM Arousal\n"; \
+             printf "# arousal_lm | LM Arousal\n"; \
              printf "# hypopnea | Hypopnea  | desat[num]\n"; \
              printf "# apnea_obstructive | Obstructive Apnea | desat[num] \n"; \
              printf "# apnea_central | Central Apnea | desat[num]\n"; \
@@ -39,7 +39,7 @@ tr -d '\r' <  $f | sed 's/ - /\t/g' | awk -F"\t" \
          $2 == "DESATURATION" {split($3,a,":");split($4,b," ");split($5, c, " "); print "desat",".",".",$1,timeadd($1,a[2]),b[2]"|"c[2]} \
          $2 == "AROUSAL" && $4 == "SPONTANEOUS" {split($3,a, ":"); print "arousal_spontaneous",".",".",$1,timeadd($1,a[2]),"."} \
          $2 == "AROUSAL" && $4 == "RESPIRATORY EVENT" {split($3,a,":"); print "arousal_respiratory",".",".",$1,timeadd($1,a[2]),"."} \
-         $2 == "AROUSAL" && $4 == "LM" {split($3, a, ":"); print "arousal_plm",".",".",$1,timeadd($1,a[2]),"."} \
+         $2 == "AROUSAL" && $4 == "LM" {split($3, a, ":"); print "arousal_lm",".",".",$1,timeadd($1,a[2]),"."} \
          $2 == "RESPIRATORY EVENT" && $4 == "HYPOPNEA" {split($3,a,":");split($5,b," "); print "hypopnea",".",".",$1,timeadd($1,a[2]),b[2]} \
          $2 == "RESPIRATORY EVENT" && $4 == "OBSTRUCTIVE APNEA" {split($3,a,":");split($5,b," "); print "apnea_obstructive",".",".",$1,timeadd($1,a[2]),b[2]} \
          $2 == "RESPIRATORY EVENT" && $4 == "CENTRAL APNEA" {split($3,a,":");split($5,b," "); print "apnea_central",".",".",$1,timeadd($1,a[2]),b[2]} \
