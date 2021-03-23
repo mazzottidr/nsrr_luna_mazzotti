@@ -21,10 +21,10 @@ do
    BEGIN { printf "# desat | SaO2 desaturations | min[num] drop[num]\n"; \
           printf "# arousal_spontaneous | Spontaneous Arousal\n"; \
           printf "# arousal_standard | Standard Arousal\n"; \
-          printf "# arousal_respiratory | Resp Arousal\n"; \
+          printf "# arousal_respiratory | Respiratory Arousal\n"; \
           printf "# arousal_lm | LM Arousal\n"; \
           printf "# hypopnea | Hypopnea | min[num]\n"; \
-          printf "# apnea_obstructive | Obstructive Apne | min[num]\n"; \
+          printf "# apnea_obstructive | Obstructive Apnea | min[num]\n"; \
           printf "# apnea_central | Central Apnea | min[num]\n"; \
           printf "# apnea_mixed | Mixed Apnea | min[num]\n"; \
           printf "# lm | LM\n";} \
@@ -39,3 +39,20 @@ do
       $5 == "MA"|| $5 ==  "MixedApnea" { print "apnea_mixed" , ".", "." , $7, timeadd($7, $10), $8} \
       $5 == "LM" { print "lm" , ".", "." , $7, $7, "."} '  OFS="\t" > ${DIR}/gamma/${id}.annot
 done
+
+# Time add function within AWK command will return stop time
+# provided start time and dur as input values
+
+# We have identified following files with issues
+# negative dur values:
+# wsc-visit1-10191
+# wsc-visit1-11162
+# wsc-visit1-41115
+# wsc-visit1-75614
+# wsc-visit1-82488
+# wsc-visit1-89175
+# wsc-visit2-12325
+# wsc-visit2-64948
+
+# missing start time:
+# wsc-visit2-77724

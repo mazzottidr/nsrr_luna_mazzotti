@@ -50,7 +50,16 @@ tr -d '\r' <  $f | sed 's/ - /\t/g' | awk -F"\t" \
          $2 == "PAUSED" {print "paused",".",".",$1,$1,"."} \
          $2 == "START RECORDING" {print "startrecording",".",".",$1,$1,"."} \
          $2 != "START RECORDING" && $2 != "RESPIRATORY EVENT" && $2!= "DESATURATION" && $2!= "STAGE" && $2!= "AROUSAL" && $2!= "LM" && $2!= "LIGHTS OUT" && $2!= "LIGHTS ON" && $2!= "PAUSED" {print "misc",".",".",$1,$1,$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9" "$10" "$11" "$12" "$13} ' OFS="\t" > ${DIR}/${id}tmp.txt 
+ 
+ # Replacing spaces with underscores for data rows - targeted for misc events
  cat ${DIR}/${id}tmp.txt | grep -e '^#' > ${DIR}/${id}.annot
  cat ${DIR}/${id}tmp.txt | grep -v '^#'  | tr -s ' ' | tr ' ' '_' | sed 's/_$//g' >> ${DIR}/${id}.annot
  rm ${DIR}/${id}tmp.txt
-done 
+done
+
+# Time add function within AWK command will return stop time
+# provided start time and dur as input values
+
+# Following manual changes are applied after running the above script
+# For wsc-visit3-24698 → we have changed <NA> to "."
+# For wsc-visit3-13061  → we have removed last line that was empty 
