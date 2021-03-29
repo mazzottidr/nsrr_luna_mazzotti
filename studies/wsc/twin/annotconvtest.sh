@@ -26,10 +26,10 @@ tr -d '\r' <  $f | sed 's/ - /\t/g' | awk -F"\t" \
              printf "# arousal_spontaneous | Spontaneous Arousal\n"; \
              printf "# arousal_respiratory | Respiratory Arousal\n"; \
              printf "# arousal_lm | LM Arousal\n"; \
-             printf "# hypopnea | Hypopnea  | desat[num]\n"; \
-             printf "# apnea_obstructive | Obstructive Apnea | desat[num] \n"; \
-             printf "# apnea_central | Central Apnea | desat[num]\n"; \
-             printf "# apnea_mixed | Mixed Apnea | desat[num]\n"; \
+             printf "# hypopnea | Hypopnea  | min[num]\n"; \
+             printf "# apnea_obstructive | Obstructive Apnea | min[num] \n"; \
+             printf "# apnea_central | Central Apnea | min[num]\n"; \
+             printf "# apnea_mixed | Mixed Apnea | min[num]\n"; \
              printf "# lm | LM\n"; \
              printf "# lights_off| Lights Out\n"; \
              printf "# lights_on | Lights On\n"; \
@@ -62,4 +62,6 @@ done
 
 # Following manual changes are applied after running the above script
 # For wsc-visit3-24698 → we have changed <NA> to "."
-# For wsc-visit3-13061  → we have removed last line that was empty 
+# For wsc-visit3-13061  → we have removed last line that was empty
+
+# Apena events desat metadata is converted to min (to standardize across cohorts) 
