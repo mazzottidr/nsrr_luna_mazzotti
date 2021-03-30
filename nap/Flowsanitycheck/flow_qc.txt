@@ -1,8 +1,0 @@
-id ID Subject Id
-fs_flow int Var 1
-prob_upright num Var 2
-fraction_noise float Var 3
-filter_lp_predict float Var 4
-filter_hp_predict float Var 5
-fraction_clipping float Var 6
-
