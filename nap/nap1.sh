@@ -476,7 +476,20 @@ ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} \
 ##
 ## --------------------------------------------------------------------------------
 
-
+${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} silent=T -o out.db -s CONTAINS sig=nas_pres
+DO_RESP_ANALYSIS=$?
+if [[ ${DO_RESP_ANALYSIS} -eq 0 ]]; then
+  module load matlab/2019b
+  echo "starting respiratory analysis"
+  edfname=${input}/${id}".edf"
+  #echo ${edfname}
+  outputresp=${input}/nap/${id}/
+  #echo ${outputresp}
+  #echo ${NAP_DIR}"/Flowsanitycheck"
+  matlab -nodisplay -r "FlowQcNsrr $edfname $outputresp" -sd ${NAP_DIR}"/Flowsanitycheck" -logfile ${outputresp}/outputconvert.log
+else
+  echo "nas_pres channel missing, skipping respiratory analysis"
+fi
 
 
 ## --------------------------------------------------------------------------------
