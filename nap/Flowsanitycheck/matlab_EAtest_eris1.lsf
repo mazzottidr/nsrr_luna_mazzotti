@@ -1,4 +1,0 @@
-module load matlab/2019b
-infold=\'/data/nsrr/EndotypeAnalysis/Source/mesa-sleep-0001-remap.edf\'
-outfold=\'/data/nsrr/EndotypeAnalysis/Source/\'
-matlab -nodisplay -r "FlowQcNsrr($infold,$outfold)" -sd /data/nsrr/EndotypeAnalysis/Flowsanitycheck -logfile outputconvert.log

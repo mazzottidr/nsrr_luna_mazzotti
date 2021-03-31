@@ -137,7 +137,7 @@ slist="${input}/s.lst"
 ## --------------------------------------------------------------------------------
 
 
-echo "LSF qute [${NAP_LSF_NODES}]"
+echo "LSF queue [${NAP_LSF_NODES}]"
 
 ## default queue is 'medium'  NAP_QUEUE
 
@@ -174,15 +174,17 @@ cmdline="${NAP_DIR}/napn.sh ${run} ${input} $i $i2 $conf2"
 if [[ ${NAP_JOBN} -eq 1 ]]; then
  echo $cmdline | bash
 else  # use LSF
-#echo "$cmdline" | bsub ${NAP_LSF_QUEUE} -n 1 \
-#                       ${NAP_LSF_RUSAGE} \
-#                       ${NAP_LSF_NODES} \
+ bsub_cmd="bsub ${NAP_LSF_QUEUE} -n 1 \
+                ${NAP_LSF_RUSAGE} \
+                ${NAP_LSF_NODES} \
+                -o ${output}/tmp/batch${b}.out \
+                -e ${output}/tmp/batch${b}.err"
+  # Running bsub command stored in var 'bsub_cmd' using eval 
+  echo "$cmdline" | eval ${bsub_cmd}
+
+#echo "$cmdline" | bsub -q medium -n 1 -R 'rusage[mem=8000]' -m 'cn075 cn076' \
 #                       -o ${output}/tmp/batch${b}.out \
 #                       -e ${output}/tmp/batch${b}.err
-
-echo "$cmdline" | bsub -q medium -n 1 -R 'rusage[mem=8000]' -m "cn075 cn076" \
-                       -o ${output}/tmp/batch${b}.out \
-                       -e ${output}/tmp/batch${b}.err
 
 fi
 
