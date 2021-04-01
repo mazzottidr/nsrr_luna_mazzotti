@@ -16,6 +16,7 @@
 | desat                      | SpO2 desaturation                       |
 | hypopnea50                 | Hypopnea (50 percent airflow reduction) |
 | hypopnea                   | Hypopnea                                |
+| hypopnea\_obstructive      | Obstructive Hypopnea                    |
 | NREM1                      | Stage 1 sleep                           |
 | NREM2                      | Stage 2 sleep                           |
 | NREM3                      | Stage 3 sleep                           |
