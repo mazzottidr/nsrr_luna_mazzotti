@@ -45,4 +45,5 @@
 | bradycardia                | Bradycardia                             |
 | tachycardia                | Tachycardia                             |
 | tachycardia\_narrowcomplex | Narrow Complex Tachycardia              |
+| cap                        | Capnography                             |
 | notes                      | Technician Notes                        |
