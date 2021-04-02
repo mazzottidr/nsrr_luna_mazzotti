@@ -435,7 +435,7 @@ ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_spec} tt-appe
 ${NAP_LUNA} ${output}/${id}/canonical.lst ${id} ${NAP_LUNA_ARGS} \
     adir=${output}/${id}/annots/ \
     -t ${output} ${dom_suds} \
-    -s 'SOAP-SUDS sig=csEEG nc=10 th=5 lambda=0.5 epoch annot=NAP_soap annot-dir=${adir}' 2>> $ERR
+    -s 'SOAP sig=csEEG nc=10 th=5 lambda=0.5 epoch annot=NAP_soap annot-dir=${adir}' 2>> $ERR
 
 # hack to unf*ck row-order formatting issue w/ -t option for some Luna commands
 # not needed for 'E'
