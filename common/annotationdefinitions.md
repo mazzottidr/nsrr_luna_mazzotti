@@ -20,7 +20,7 @@
 | NREM1                      | Stage 1 sleep                           |
 | NREM2                      | Stage 2 sleep                           |
 | NREM3                      | Stage 3 sleep                           |
-| NREM4                      | Stage 3 sleep                           |
+| NREM3                      | Stage 4 sleep                           |
 | REM                        | REM sleep                               |
 | wake                       | Wake                                    |
 | unscored                   | Unscored                                |
