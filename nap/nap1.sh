@@ -317,9 +317,10 @@ echo "Attempting to determine EEG polarity (of canonical EEG only)..." >> $LOG
 ${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} \
              csfile=${NAP_DEF_DIR}/sigs.canonical \
              group=${run} \
+             prefix=cs \
             -o ${output}/${id}/pol.db \
 	    -s 'MASK all & MASK unmask-if=NREM2,NREM3 & RE & 
-                CANONICAL file=${csfile} group=${group} &
+                CANONICAL file=${csfile} group=${group} prefix=${prefix} &
                 CHEP-MASK sig=csEEG ep-th=2 & 
                 CHEP sig=csEEG epochs & RE & 
                 SPINDLES sig=csEEG fc=15 so mag=2 &
@@ -379,10 +380,11 @@ rm -rf ${output}/${id}/canonical.lst
 ${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} \
 	    csfile=${NAP_DEF_DIR}/sigs.canonical \
 	    group=${run} \
+            prefix=cs \
 	    outdir=${output}/${id} \
 	    flipchs=`cat ${output}/${id}/neg.chs` \
        -t ${output} ${dom_core} \
-       -s 'CANONICAL file=${csfile} group=${group} & 
+       -s 'CANONICAL file=${csfile} group=${group} prefix=${prefix} & 
            FLIP sig=${flipchs} & 
            SIGNALS keep=csEEG,csLOC,csROC,csEMG,csECG &
            FILTER bandpass=0.3,35 tw=0.5 ripple=0.02 sig=csEEG,csLOC,csROC &
