@@ -1,4 +1,3 @@
-
 # NCH-SDB cohort
 
 - NSRR harmonization, v1
@@ -1370,8 +1369,8 @@ Actions (to be) completed:
  - [x] Realign EDF records to annotation
  - [x] Create canonical	EEG EDFs w/ harmonized staging annotations
  - [x] Initial spectral analysis of sleep EEG
- - [ ] Extract a broader list of harmonized annotations (beyond staging) and map to NSRR terms
- - [ ] Update NSRR master list of annotation terms
+ - [x] Extract a broader list of harmonized annotations (beyond staging) and map to NSRR terms
+ - [x] Update NSRR master list of annotation terms
  - [ ] Extract canonical respitory signals
  - [ ] Consider options for dealing w/ line noise artifact in these recordings
  - [ ] Create a	brief README summarizing these steps (and pointing to this file in the repo)
