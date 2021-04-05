@@ -13,7 +13,6 @@ alias	etco2|EtCO2
 alias	cap|Capno
 alias	resprate|Resp_Rate
 alias	snore|Snore
-alias	nas_pres|Pressure
 alias	ecg2_ecg1|ECG_EKG2-EKG
 alias	ecg1|EEG_EKG1
 alias	ecg2|EEG_EKG2
@@ -25,7 +24,7 @@ alias	lleg_r|EMG_LLeg-RLeg
 alias	pap_flow|C-flow|C-Flow
 alias	tcco2|TcCO2
 alias	cchin_l|EMG_Chin1-Chin2|EMG_CHIN1-CHIN2
-alias	pap_pres|C-Pressure
+alias	pap_pres|C-Pressure|Pressure
 alias	lchin_c|EMG_Chin2-Chin1
 alias	rchin_l|EMG_Chin3-Chin2
 alias	rleg1_2|EMG_RLEG+-RLEG-|EMG_RAT1-RAT2
