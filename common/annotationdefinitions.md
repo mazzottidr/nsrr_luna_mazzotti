@@ -24,7 +24,7 @@
 | REM                        | REM sleep                               |
 | wake                       | Wake                                    |
 | unscored                   | Unscored                                |
-| movement                   | Movement                                |
+| movement                   | Body Movement                           |
 | ?                          | Unknown stage                           |
 | plm\_left                  | Periodic Limb Movement (Left)           |
 | plm\_right                 | Periodic Limb Movement (Right)          |
@@ -36,12 +36,9 @@
 | lmr\_arousal               | Right Leg w/Arousal                     |
 | lmb\_arousal               | Both Legs w/Arousal                     |
 | artifact\_respiratory      | Respiratory artifact                    |
-| artifact\_proximal\_ph     | Proximal pH artifact                    |
-| artifact\_distal\_ph       | Distal pH artifact                      |
-| artifact\_blood\_pressure  | Blood pressure artifact                 |
-| artifact\_tcco2            | TcCO2 artifact                          |
+| artifact\_tcco2            | Transcutaneous CO2 artifact             |
 | artifact\_spo2             | SpO2 artifact                           |
-| artifact\_etco2            | EtCO2 artifact                          |
+| artifact\_etco2            | End tidal CO2 artifact                  |
 | bradycardia                | Bradycardia                             |
 | tachycardia                | Tachycardia                             |
 | tachycardia\_narrowcomplex | Narrow Complex Tachycardia              |
