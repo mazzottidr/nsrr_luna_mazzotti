@@ -29,12 +29,12 @@ do
           printf "# apnea_mixed | Mixed Apnea | min[num]\n"; \
           printf "# lm | LM\n";} \
       $5 == "SaO2" { print "desat" ,  ".", ".", $7, timeadd($7, $10), $8"|"$9} \
-      $5 == "Spon Arousal"|| $5 == "spon arousal"|| $5 == "SPON Arousal" { print "arousal_spontaneous" ,  ".", ".", $7, $7, "." } \
+      $5 == "SponArousal"|| $5 == "sponarousal"|| $5 == "SPONArousal" { print "arousal_spontaneous" ,  ".", ".", $7, $7, "." } \
       $5 == "Arousal" { print "arousal_standard" , ".",  "." , $7 , $7, "." } \
-      $5 == "RespA"|| $5 == "resp arousal"|| $5 == "Resp Arousal"|| $5 == "RESP Arousal" { print "arousal_respiratory" , ".", "." , $7 , $7, "."} \
+      $5 == "RespA"|| $5 == "resparousal"|| $5 == "RespArousal"|| $5 == "RESPArousal" { print "arousal_respiratory" , ".", "." , $7 , $7, "."} \
       $5 == "LMA" { print "arousal_lm" , ".", "." , $7 , $7, "." } \
-      $5 == "Hypopnea"|| $5 == "Central Hypopnea"|| $5 == "Obst. Hypopnea" { print "hypopnea" , ".", "." , $7 , timeadd($7, $10), $8} \
-      $5 == "OA"|| $5 == "Obs Apnea"||$5 == "Obst. Apnea"|| $5 == "Obst Apnea"|| $5 == "OBS Apnea"|| $5 == "Apnea" { print "apnea_obstructive" , ".", "." , $7, timeadd($7, $10), $8 } \
+      $5 == "Hypopnea" || $5 == "CentralHypopnea"|| $5 == "Obst.Hypopnea" { print "hypopnea" , ".", "." , $7 , timeadd($7, $10), $8} \
+      $5 == "OA"|| $5 == "ObsApnea"||$5 == "Obst.Apnea"|| $5 == "ObstApnea"|| $5 == "OBSApnea"|| $5 == "Apnea" { print "apnea_obstructive" , ".", "." , $7, timeadd($7, $10), $8 } \
       $5 == "CA"|| $5 == "CentralApnea" { print "apnea_central" , ".", "." , $7, timeadd($7, $10), $8} \
       $5 == "MA"|| $5 ==  "MixedApnea" { print "apnea_mixed" , ".", "." , $7, timeadd($7, $10), $8} \
       $5 == "LM" { print "lm" , ".", "." , $7, $7, "."} '  OFS="\t" > ${DIR}/gamma/${id}.annot
