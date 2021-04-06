@@ -1,3 +1,4 @@
+### Arousals
 | Annotation                 | Definition                              |
 | -------------------------- | --------------------------------------- |
 | arousal\_standard          | Standard Arousal                        |
@@ -7,6 +8,10 @@
 | arousal\_cheshire          | Arousal resulting from Chin EMG         |
 | arousal\_lm                | Limb movement arousal                   |
 | arousal\_plm               | Periodic limb movement arousal          |
+
+### Respiratory Events
+| Annotation                 | Definition                              |
+| -------------------------- | --------------------------------------- |
 | apnea\_obstructive         | Obstructive Apnea                       |
 | apnea\_central             | Central Apnea                           |
 | apnea\_mixed               | Mixed Apnea                             |
@@ -17,15 +22,21 @@
 | hypopnea50                 | Hypopnea (50 percent airflow reduction) |
 | hypopnea                   | Hypopnea                                |
 | hypopnea\_obstructive      | Obstructive Hypopnea                    |
-| NREM1                      | Stage 1 sleep                           |
-| NREM2                      | Stage 2 sleep                           |
-| NREM3                      | Stage 3 sleep                           |
-| NREM3                      | Stage 4 sleep                           |
-| REM                        | REM sleep                               |
-| wake                       | Wake                                    |
+### Staging
+| Annotation                 | Definition                              |
+| -------------------------- | --------------------------------------- |
+| N1                      | Stage 1 sleep                           |
+| N2                      | Stage 2 sleep                           |
+| N3                      | Stage 3 sleep                           |
+| N3                      | Stage 4 sleep                           |
+| R                        | REM sleep                               |
+| W                       | Wake                                    |
 | unscored                   | Unscored                                |
 | movement                   | Body Movement                           |
 | ?                          | Unknown stage                           |
+### Limb Movements
+| Annotation                 | Definition                              |
+| -------------------------- | --------------------------------------- |
 | plm\_left                  | Periodic Limb Movement (Left)           |
 | plm\_right                 | Periodic Limb Movement (Right)          |
 | lm\_left                   | Limb Movement (Left)                    |
@@ -35,12 +46,17 @@
 | lml\_arousal               | Left Leg w/Arousal                      |
 | lmr\_arousal               | Right Leg w/Arousal                     |
 | lmb\_arousal               | Both Legs w/Arousal                     |
+### Artifact
+| Annotation                 | Definition                              |
+| -------------------------- | --------------------------------------- |
 | artifact\_respiratory      | Respiratory artifact                    |
 | artifact\_tcco2            | Transcutaneous CO2 artifact             |
 | artifact\_spo2             | SpO2 artifact                           |
 | artifact\_etco2            | End tidal CO2 artifact                  |
+### Arrhythmias
+| Annotation                 | Definition                              |
+| -------------------------- | --------------------------------------- |
 | bradycardia                | Bradycardia                             |
 | tachycardia                | Tachycardia                             |
 | tachycardia\_narrowcomplex | Narrow Complex Tachycardia              |
-| cap                        | Capnography                             |
-| notes                      | Technician Notes                        |
+
