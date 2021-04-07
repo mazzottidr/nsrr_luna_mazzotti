@@ -5,3 +5,4 @@ NCH	F4	EEG_F4-M1	.	256	uV
 NCH	O1	EEG_O1-M2	.	256	uV
 NCH	O2	EEG_O2-M1	.	256	uV
 NCH	Flow	flow	.	256	uV
+NCH	PTAF	ptaf	.	256	uV
