@@ -441,11 +441,11 @@ ${NAP_LUNA} ${output}/${id}/canonical.lst ${id} ${NAP_LUNA_ARGS} \
 
 # hack to unf*ck row-order formatting issue w/ -t option for some Luna commands
 # not needed for 'E'
-${NAP_FIXROWS} ID   < ${output}/${id}/luna_suds_SOAP-SUDS.txt > ${output}/${id}/fixed_SOAP-SUDS.txt
-mv ${output}/${id}/fixed_SOAP-SUDS.txt ${output}/${id}/luna_suds_SOAP-SUDS.txt
+${NAP_FIXROWS} ID   < ${output}/${id}/luna_suds_SOAP.txt > ${output}/${id}/fixed_SOAP.txt
+mv ${output}/${id}/fixed_SOAP.txt ${output}/${id}/luna_suds_SOAP.txt
 
-${NAP_FIXROWS} ID SS < ${output}/${id}/luna_suds_SOAP-SUDS_SS.txt > ${output}/${id}/fixed_SOAP-SUDS_SS.txt  
-mv ${output}/${id}/fixed_SOAP-SUDS_SS.txt ${output}/${id}/luna_suds_SOAP-SUDS_SS.txt
+${NAP_FIXROWS} ID SS < ${output}/${id}/luna_suds_SOAP_SS.txt > ${output}/${id}/fixed_SOAP_SS.txt
+mv ${output}/${id}/fixed_SOAP_SS.txt ${output}/${id}/luna_suds_SS.txt
 
 ## --------------------------------------------------------------------------------
 ##
