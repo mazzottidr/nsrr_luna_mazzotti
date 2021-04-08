@@ -445,7 +445,7 @@ ${NAP_FIXROWS} ID   < ${output}/${id}/luna_suds_SOAP.txt > ${output}/${id}/fixed
 mv ${output}/${id}/fixed_SOAP.txt ${output}/${id}/luna_suds_SOAP.txt
 
 ${NAP_FIXROWS} ID SS < ${output}/${id}/luna_suds_SOAP_SS.txt > ${output}/${id}/fixed_SOAP_SS.txt
-mv ${output}/${id}/fixed_SOAP_SS.txt ${output}/${id}/luna_suds_SS.txt
+mv ${output}/${id}/fixed_SOAP_SS.txt ${output}/${id}/luna_suds_SOAP_SS.txt
 
 ## --------------------------------------------------------------------------------
 ##
