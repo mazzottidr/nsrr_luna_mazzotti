@@ -3,9 +3,9 @@
 | -------------------------- | --------------------------------------- |
 | arousal\_standard          | Standard Arousal                        |
 | arousal\_spontaneous       | Spontaneous Arousal                     |
-| arousal\_external          | External Arousal                        |
+|                        |
 | arousal\_respiratory       | RERA                                    |
-| arousal\_cheshire          | Arousal resulting from Chin EMG         |
+|      |
 | arousal\_lm                | Limb movement arousal                   |
 | arousal\_plm               | Periodic limb movement arousal          |
 
@@ -16,12 +16,14 @@
 | apnea\_central             | Central Apnea                           |
 | apnea\_mixed               | Mixed Apnea                             |
 | hypopnea30                 | Hypopnea (30 percent airflow reduction) |
-| periodic\_breathing        | Periodic Breathing                      |
+| periodic\_breathing        | Periodic Breathing 
+   CheyneStokes\_ breathing      Cheyne Stokes Breathing            |
 | respiratory\_paradox       | Respiratory Paradox                     |
 | desat                      | SpO2 desaturation                       |
 | hypopnea50                 | Hypopnea (50 percent airflow reduction) |
-| hypopnea                   | Hypopnea                                |
-| hypopnea\_obstructive      | Obstructive Hypopnea                    |
+| hypopnea                   | Hypopnea (unspecified airflow reduction)                               |
+| hypopnea\_obstructive      | Obstructive Hypopnea
+hypopnea\_central               Central Hyopnea    |
 ### Staging
 | Annotation                 | Definition                              |
 | -------------------------- | --------------------------------------- |
