@@ -40,6 +40,7 @@
 | -------------------------- | --------------------------------------- |
 | plm\_left                  | Periodic Limb Movement (Left)           |
 | plm\_right                 | Periodic Limb Movement (Right)          |
+| plm                        | Periodic Limb Movement (Unspecified Limb)|
 | lm\_left                   | Limb Movement (Left)                    |
 | lm\_right                  | Limb Movement (Right)                   |
 | lm\_both                   | Limb Movement (both legs)               |
