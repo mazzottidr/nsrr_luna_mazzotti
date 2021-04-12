@@ -34,6 +34,7 @@
 | unscored                   | Unscored                                |
 | movement                   | Body Movement                           |
 | ?                          | Unknown stage                           |
+| L                          | Epoch occurs prior to Lights Off        |
 ### Limb Movements
 | Annotation                 | Definition                              |
 | -------------------------- | --------------------------------------- |
