@@ -289,7 +289,7 @@ Write a command file as,
 ```
 cat cmd/segments.txt
 SEGMENTS
-SPANNING annot=N1,N2,N3,R,W,?
+SPANNING annot=N1,N2,N3,R,W,?,movement
 ```
 
 Run the job:
@@ -305,17 +305,8 @@ no output, looks fine
 
 ```
  destrat g_out/segments.batch00*.db +SPANNING -v NSEGS  | awk ' $2 != 1 '
-ID	NSEGS
-wsc-visit1-22389	2
-wsc-visit1-34490	2
-wsc-visit1-44215	2
-wsc-visit1-53311	2
-wsc-visit1-84690	2
-wsc-visit1-96211	2
-wsc-visit1-96903	2
-wsc-visit2-62741	2
 ```
-i.e. 8 people have a value other than 1
+no output, looks fine
 
 ```
 destrat t_out/segments.batch00*.db +SEGMENTS  -v NSEGS  | awk ' $2 != 1 '
@@ -327,9 +318,7 @@ destrat t_out/segments.batch00*.db +SPANNING  -v NSEGS  | awk ' $2 != 1 '
 ID	NSEGS
 wsc-visit4-45113	0
 ```
-i.e. One people have a value other than 1
-
-TODO: next steps for these tagged files
+i.e. One people have a value other than 1. 
 
 
 
