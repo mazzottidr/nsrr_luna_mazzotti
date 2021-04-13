@@ -1,3 +1,4 @@
+(Note: all EEG channels have an explicit  {active}_{reference} label:  i.e. so always C3_M2, etc.)
 | Channel    | Description                                   |
 | ---------- | --------------------------------------------- |
 | abdomen    | Abdominal Effort                              |
@@ -107,3 +108,4 @@
 | therm      | Thermistor                                    |
 | thorax     | Thoracic Effort                               |
 | tvol       | Tidal Volume                                  |
+
