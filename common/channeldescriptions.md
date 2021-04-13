@@ -36,7 +36,6 @@
 | etco2      | End Tidal CO2                                 |
 | etco2w     | End Tidal CO2 Waveform                        |
 | ex\_pres   | Expiratory Pressure                           |
-| F1         | F1                                            |
 | F3         | F3                                            |
 | F4         | F4                                            |
 | F7         | F7                                            |
