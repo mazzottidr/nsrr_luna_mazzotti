@@ -506,3 +506,66 @@ Twin:
  awk ' NR!=1 { print $3 } ' t_tmp/channels | sort | uniq -c
   12113 200
 ```
+
+
+
+## Check sleep macro-architecture
+
+For convenience, let's aggregate all project-specific options in a single
+parameter file:
+
+GAMMA:
+```
+echo -e  'force-edf\tT' > g_param
+echo -e  'exclude\tg_tmp/excludes' >> g_param
+cat final/sigs.alias >> g_param
+```
+As always, try 1 first:
+```
+luna g_s.lst @g_param 1 -o g_tmp/hypno.db -s HYPNO
+destrat g_tmp/hypno.db +HYPNO -v CONF
+```
+No conflicts, proceed to submit batch job`
+
+TWIN:
+```
+echo -e  'force-edf\tT' > t_param
+echo -e  'exclude\tt_tmp/excludes' >> t_param
+cat sigs.alias >> t_param
+```
+
+
+As always, try 1 first:
+```
+luna t_s.lst @t_param 1 -o t_tmp/hypno.db -s HYPNO
+destrat t_tmp/hypno.db +HYPNO -v CONF
+```
+No conflicts, proceed to submit batch job`
+
+
+Now submit LSF job for all files,
+```
+/data/nsrr/bin/runner.sh 20 g_s.lst g_param cmd/hypno.txt o g_out/hypno g_out/hypno
+destrat g_out/hypno.batch00*.db +HYPNO -v CONF
+```
+Output looks fine, no conflicts
+
+```
+/data/nsrr/bin/runner.sh 20 t_s.lst t_param cmd/hypno.txt o t_out/hypno t_out/hypno
+destrat t_out/hypno.batch00*.db +HYPNO -v CONF
+```
+Output looks fine, no conflicts
+
+## Summary
+In overall, we have completed the following:
+- [x] Input file check (consistency across all original scoring files)
+ -- File count with specific extension(s)
+ -- Filename: Pattern 
+ -- Filename: Number of Columns
+ -- Delimiter
+- [x] Basic channel/annotation label harmonization 
+- [x] checks of sample rates and EDF duration
+- [x] Sleep Macro Architecture
+- [ ] Post EDFs, annotations and the README on NSRR
+
+
