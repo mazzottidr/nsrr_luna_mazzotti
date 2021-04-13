@@ -1,5 +1,6 @@
-| abdomen    | Abdominal Effort                              |
+| Channel    | Description                                   |
 | ---------- | --------------------------------------------- |
+| abdomen    | Abdominal Effort                              |
 | activity   | Activity                                      |
 | altflow    | Alternate flow channnel                       |
 | annots     | Annotations                                   |
