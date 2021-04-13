@@ -21,7 +21,7 @@ do
   echo "Encoding Check"
   awk ' NR != 1 { print $2 } ' ${DIR}/gamma/${id}stg.txt | sort | uniq -c
 tr -d '\r' < ${DIR}/gamma/${id}stg.txt | \
-awk -v x=${de} ' BEGIN { s[0] = "wake" ; s[1]="NREM1"; s[2]="NREM2"; s[3]="NREM3"; s[4]="NREM3"; s[5]="REM"; s[6]="movement"; s[7]="?" } NR != 1 { print s[$2] } END { for(i=0;i<x;i++) print "?" } ' > ${DIR}/gamma/${id}.eannot
+awk -v x=${de} ' BEGIN { s[0] = "W" ; s[1]="N1"; s[2]="N2"; s[3]="N3"; s[4]="N3"; s[5]="R"; s[6]="movement"; s[7]="?" } NR != 1 { print s[$2] } END { for(i=0;i<x;i++) print "?" } ' > ${DIR}/gamma/${id}.eannot
 echo "Line Count"
 wc ${DIR}/gamma/${id}.eannot
 luna ${DIR}/gamma/${id}.edf annot-file=${DIR}/gamma/${id}.eannot -o out.db -s 'SPANNING & ANNOTS'

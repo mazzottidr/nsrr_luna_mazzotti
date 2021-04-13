@@ -27,7 +27,8 @@ do
           printf "# apnea_obstructive | Obstructive Apnea | min[num]\n"; \
           printf "# apnea_central | Central Apnea | min[num]\n"; \
           printf "# apnea_mixed | Mixed Apnea | min[num]\n"; \
-          printf "# lm | LM\n";} \
+          printf "# lm | LM\n"; \
+          printf "# misc | Miscellaneous | notes[txt]\n";} \
       $5 == "SaO2" { print "desat" ,  ".", ".", $7, timeadd($7, $10), $8"|"$9} \
       $5 == "SponArousal"|| $5 == "sponarousal"|| $5 == "SPONArousal" { print "arousal_spontaneous" ,  ".", ".", $7, $7, "." } \
       $5 == "Arousal" { print "arousal_standard" , ".",  "." , $7 , $7, "." } \
@@ -37,7 +38,8 @@ do
       $5 == "OA"|| $5 == "ObsApnea"||$5 == "Obst.Apnea"|| $5 == "ObstApnea"|| $5 == "OBSApnea"|| $5 == "Apnea" { print "apnea_obstructive" , ".", "." , $7, timeadd($7, $10), $8 } \
       $5 == "CA"|| $5 == "CentralApnea" { print "apnea_central" , ".", "." , $7, timeadd($7, $10), $8} \
       $5 == "MA"|| $5 ==  "MixedApnea" { print "apnea_mixed" , ".", "." , $7, timeadd($7, $10), $8} \
-      $5 == "LM" { print "lm" , ".", "." , $7, $7, "."} '  OFS="\t" > ${DIR}/gamma/${id}.annot
+      $5 == "LM" { print "lm" , ".", "." , $7, $7, "."} \
+      $5 == "SnoreA" || $5 == "Snore" ||$5 == "PLME" ||$5 == "PLM" ||$5 == "BadSaO2Epoch" ||$5 == "BadECGEpoch" {print "misc",".",".",$7,$7,$5}'  OFS="\t" > ${DIR}/gamma/${id}.annot
 done
 
 # Time add function within AWK command will return stop time
