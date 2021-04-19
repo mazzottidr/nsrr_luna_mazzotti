@@ -12,7 +12,6 @@
 | cap        | Capnography                                   |
 | cchin      | Center chin EMG                               |
 | cchin\_l   | Center chin EMG referenced to Left chin EMG   |
-| Channel    | Description                                   |
 | chin       | Chin EMG                                      |
 | Cz         | Cz                                            |
 | DHR        | Derived Heart Rate                            |
