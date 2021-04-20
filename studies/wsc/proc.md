@@ -90,6 +90,8 @@ paste g_tmp/ids g_tmp/ids.stg | awk ' $1 != $2 '
 
 ## Annotation Summary
 
+All the below mapping are listed in [nsrr-mapping](https://gitlab-scm.partners.org/zzz-public/nsrr/-/blob/master/common/annotationdefinitions.md) page
+
 ### GAMMA
 Gamma annots summary: stg file have all stage information. And sco files have all annots other than stages.
 ```
@@ -320,26 +322,44 @@ wsc-visit4-45113	0
 ```
 i.e. One people have a value other than 1. 
 
+Add above conflicting file into excludes list
+```
+echo "wsc-visit4-45113" > t_tmp/excludes
+```
+
 
 
 ## Check and compile EDF channels
 
 For gamma stduy, We already know that there are following issues with:
-negative dur values:
-wsc-visit1-10191
-wsc-visit1-11162
-wsc-visit1-41115
-wsc-visit1-75614
-wsc-visit1-82488
-wsc-visit1-89175
-wsc-visit2-12325
-wsc-visit2-64948
 
-missing start time:
-wsc-visit2-77724
+1. Negative dur values:
+ - wsc-visit1-10191
+ - wsc-visit1-11162
+ - wsc-visit1-41115
+ - wsc-visit1-75614
+ - wsc-visit1-82488
+ - wsc-visit1-89175
+ - wsc-visit2-12325
+ - wsc-visit2-64948
+
+2. Missing start time:
+ - wsc-visit2-77724
 
 So, add them to exclude list when calculating headers: g_tmp/excludes
+```
+echo "wsc-visit1-10191" > g_tmp/excludes
+echo "wsc-visit1-11162" >> g_tmp/excludes
+echo "wsc-visit1-41115" >> g_tmp/excludes
+echo "wsc-visit1-75614" >> g_tmp/excludes
+echo "wsc-visit1-82488" >> g_tmp/excludes
+echo "wsc-visit1-89175" >> g_tmp/excludes
+echo "wsc-visit2-12325" >> g_tmp/excludes
+echo "wsc-visit2-64948" >> g_tmp/excludes
+echo "wsc-visit2-77724" >> g_tmp/excludes
+```
 
+Let's compile EDF's with annotations using sample list,
 ```
 luna g_s.lst force-edf=T exclude=g_tmp/excludes -o g_tmp/headers.db -s HEADERS
 ```
@@ -354,7 +374,11 @@ EDF: duration: 05.44.30 | 20670 secs ( clocktime 00.16.25 - 06.00.54 ) -> 689 ep
 stg: 841 Epochs
 
 Add this file to exclude list and re-run,
-Now, Command executed without any errors, we now have all the Gamma Header information extracted
+```
+echo "wsc-visit2-89696" >> g_tmp/excludes
+```
+
+Upon re-run, Command ran without any errors. Now we have all the Gamma Header information extracted
 ```
 luna t_s.lst force-edf=T  -o t_tmp/headers.db -s HEADERS
 ```
@@ -555,6 +579,5 @@ In overall, we have completed the following:
 - [x] Basic channel/annotation label harmonization 
 - [x] checks of sample rates and EDF duration
 - [x] Sleep Macro Architecture
-- [ ] Post EDFs, annotations and the README on NSRR
-
+- [ ] Post Original EDFs, Canonical EDF's, annotations, excludes, annots/stages list, Channels and the README on NSRR
 
