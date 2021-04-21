@@ -434,18 +434,28 @@ ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_spec} tt-appe
 ##
 ## --------------------------------------------------------------------------------
 
-${NAP_LUNA} ${output}/${id}/canonical.lst ${id} ${NAP_LUNA_ARGS} \
-    adir=${output}/${id}/annots/ \
-    -t ${output} ${dom_suds} \
-    -s 'SOAP sig=csEEG nc=10 th=5 lambda=0.5 epoch annot=NAP_soap annot-dir=${adir}' 2>> $ERR
+echo "Checking if STAGES are present" >> $LOG
+set +e
+${NAP_LUNA} ${output}/${id}/canonical.lst ${id} -s 'CONTAINS stages' 2>> $ERR
+STAGES_EXISTS=$?
+set -e
+if [[ ${STAGES_EXISTS} -eq 1 ]]; then
+  echo "STAGES missing, skipping SOAP command..." >> $LOG
+else
+  echo "Running SOAP command..." >> $LOG
+  ${NAP_LUNA} ${output}/${id}/canonical.lst ${id} ${NAP_LUNA_ARGS} \
+      adir=${output}/${id}/annots/ \
+      -t ${output} ${dom_suds} \
+      -s 'SOAP sig=csEEG nc=10 th=5 lambda=0.5 epoch annot=NAP_soap annot-dir=${adir}' 2>> $ERR
 
-# hack to unf*ck row-order formatting issue w/ -t option for some Luna commands
-# not needed for 'E'
-${NAP_FIXROWS} ID   < ${output}/${id}/luna_suds_SOAP.txt > ${output}/${id}/fixed_SOAP.txt
-mv ${output}/${id}/fixed_SOAP.txt ${output}/${id}/luna_suds_SOAP.txt
+  # hack to unf*ck row-order formatting issue w/ -t option for some Luna commands
+  # not needed for 'E'
+  ${NAP_FIXROWS} ID   < ${output}/${id}/luna_suds_SOAP.txt > ${output}/${id}/fixed_SOAP.txt
+  mv ${output}/${id}/fixed_SOAP.txt ${output}/${id}/luna_suds_SOAP.txt
 
-${NAP_FIXROWS} ID SS < ${output}/${id}/luna_suds_SOAP_SS.txt > ${output}/${id}/fixed_SOAP_SS.txt
-mv ${output}/${id}/fixed_SOAP_SS.txt ${output}/${id}/luna_suds_SOAP_SS.txt
+  ${NAP_FIXROWS} ID SS < ${output}/${id}/luna_suds_SOAP_SS.txt > ${output}/${id}/fixed_SOAP_SS.txt
+  mv ${output}/${id}/fixed_SOAP_SS.txt ${output}/${id}/luna_suds_SOAP_SS.txt
+fi
 
 ## --------------------------------------------------------------------------------
 ##
