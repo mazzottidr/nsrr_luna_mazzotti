@@ -34,40 +34,18 @@
 ### ECG
 | Channel    | Description             |
 | ---------- | ----------------------- |
-| ECG        | ECG                     |
-| ECG1       | ECG1                    |
-| ECG1\_2    | ECG1 referenced to ECG2 |
-| ECG1\_3    | ECG1 referenced to ECG3 |
-| ECG2       | ECG2                    |
-| ECG2\_ECG1 | ECG2 referenced to ECG1 |
-| ECG3       | ECG3                    |
-| ECG3\_1    | ECG3 referenced to ECG1 |
-| ECG3\_2    | ECG3 referenced to ECG2 |
+| ECG        | ECG, may be bipolar, e.g  ECG1 referenced to ECG2                  |
+
 
 ### EMG
 | Channel  | Description                                   |
 | -------- | --------------------------------------------- |
-| cchin    | Center chin EMG                               |
-| cchin\_l | Center chin EMG referenced to Left chin EMG   |
-| chin     | Chin EMG                                      |
-| EMG      | Chin EMG                                      |
-| intercos | Intercostal EMG                               |
+| EMG      | Chin EMG, may be bipolar, e.g. left chin referenced to center chin                                      |
 | larm     | Left Arm EMG                                  |
-| lchin    | Left Chin EMG                                 |
-| lchin\_c | Left Chin referenced to Center Chin EMG       |
-| lchin\_r | Left Chin referenced to Right Chin EMG        |
 | lleg     | Left leg EMG                                  |
-| lleg\_r  | Left leg referenced to Right leg EMG          |
-| lleg1    | Left leg EMG 1                                |
-| lleg1\_2 | Left leg EMG 1 referenced to Left leg EMG 2   |
-| lleg2    | Left leg EMG 2                                |
 | rarm     | Right arm EMG                                 |
-| rchin    | Right chin EMG                                |
-| rchin\_c | Right chin EMG referenced to Center chin EMG  |
 | rleg     | Right leg EMG                                 |
-| rleg1    | Right leg EMG 1                               |
-| rleg1\_2 | Right leg EMG 1 referenced to Right leg EMG 2 |
-| rleg2    | Right leg EMG 2                               |
+
 
 ### EOG
 | Channel | Description                |
