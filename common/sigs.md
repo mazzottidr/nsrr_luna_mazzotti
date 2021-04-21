@@ -31,7 +31,7 @@
 | T5      | T5                   |
 | T6      | T6                   |
 
-ECG
+### ECG
 | Channel    | Description             |
 | ---------- | ----------------------- |
 | ECG        | ECG                     |
