@@ -1,6 +1,6 @@
 (Note: all EEG channels have an explicit  {active}_{reference} label:  i.e. so always C3_M2, etc.)
 
-EEG
+### EEG
 | Channel | Description          |
 | ------- | -------------------- |
 | AVG     | Average reference    |
@@ -44,7 +44,7 @@ ECG
 | ECG3\_1    | ECG3 referenced to ECG1 |
 | ECG3\_2    | ECG3 referenced to ECG2 |
 
-EMG
+### EMG
 | Channel  | Description                                   |
 | -------- | --------------------------------------------- |
 | cchin    | Center chin EMG                               |
@@ -69,7 +69,7 @@ EMG
 | rleg1\_2 | Right leg EMG 1 referenced to Right leg EMG 2 |
 | rleg2    | Right leg EMG 2                               |
 
-EOG
+### EOG
 | Channel | Description                |
 | ------- | -------------------------- |
 | E1      | Left EOG                   |
@@ -78,7 +78,7 @@ EOG
 | E2\_M1  | Right EOG referenced to M1 |
 | E2\_M2  | Right EOG referenced to M2 |
 
-Respiratory
+### Respiratory
 | Channel   | Description                      |
 | --------- | -------------------------------- |
 | abdomen   | Abdominal Effort                 |
@@ -106,7 +106,7 @@ Respiratory
 | thorax    | Thoracic Effort                  |
 | tvol      | Tidal Volume                     |
 
-Other
+### Other
 | Channel   | Description            |
 | --------- | ---------------------- |
 | activity  | Activity               |
