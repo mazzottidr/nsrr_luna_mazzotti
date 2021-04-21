@@ -51,10 +51,8 @@
 | Channel | Description                |
 | ------- | -------------------------- |
 | E1      | Left EOG                   |
-| E1\_M2  | Left EOG referenced to M2  |
 | E2      | Right EOG                  |
-| E2\_M1  | Right EOG referenced to M1 |
-| E2\_M2  | Right EOG referenced to M2 |
+
 
 ### Respiratory
 | Channel   | Description                      |
