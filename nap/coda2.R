@@ -119,7 +119,7 @@ if ( length( nap.files ) > 0 ) {
 # By convention, we have special filename encoding to recognize particular outputs, e.g. HEADER-CH.txt
 #
 # nb. if a vector of transpose values is given, currently this transposes based on alphabetic table order
-# e.g. for SOAP-SUDS: this is the base ("") table only (based on alphabetic sort order) , so "_E", "_SS" then ""
+# e.g. for SOAP: this is the base ("") table only (based on alphabetic sort order) , so "_E", "_SS" then ""
 # 
 # ------------------------------------------------------------------------------------------------------
 
@@ -133,7 +133,7 @@ try( fextract( nap.output.dir , "luna_spso_SPINDLES" , "Spindles/SO" , tables = 
 
 try( fextract( nap.output.dir , "luna_macro_HYPNO" , "NREM cycles" , tables = c( "_C" ) ,  transpose = T ) )
 
-try( fextract( nap.output.dir , "luna_suds_SOAP-SUDS" , "SOAP-SUDS" , tables = c( "" , "_SS" , "_E" ) , transpose = c(F,F,T) ) )
+try( fextract( nap.output.dir , "luna_suds_SOAP" , "SOAP" , tables = c( "" , "_SS" , "_E" ) , transpose = c(F,F,T) ) )
 
 
 
