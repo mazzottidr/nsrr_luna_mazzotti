@@ -317,9 +317,10 @@ echo "Attempting to determine EEG polarity (of canonical EEG only)..." >> $LOG
 ${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} \
              csfile=${NAP_DEF_DIR}/sigs.canonical \
              group=${run} \
+             prefix=cs \
             -o ${output}/${id}/pol.db \
 	    -s 'MASK all & MASK unmask-if=NREM2,NREM3 & RE & 
-                CANONICAL file=${csfile} group=${group} &
+                CANONICAL file=${csfile} group=${group} prefix=${prefix} &
                 CHEP-MASK sig=csEEG ep-th=2 & 
                 CHEP sig=csEEG epochs & RE & 
                 SPINDLES sig=csEEG fc=15 so mag=2 &
@@ -379,10 +380,11 @@ rm -rf ${output}/${id}/canonical.lst
 ${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} \
 	    csfile=${NAP_DEF_DIR}/sigs.canonical \
 	    group=${run} \
+            prefix=cs \
 	    outdir=${output}/${id} \
 	    flipchs=`cat ${output}/${id}/neg.chs` \
        -t ${output} ${dom_core} \
-       -s 'CANONICAL file=${csfile} group=${group} & 
+       -s 'CANONICAL file=${csfile} group=${group} prefix=${prefix} & 
            FLIP sig=${flipchs} & 
            SIGNALS keep=csEEG,csLOC,csROC,csEMG,csECG &
            FILTER bandpass=0.3,35 tw=0.5 ripple=0.02 sig=csEEG,csLOC,csROC &
@@ -447,6 +449,7 @@ ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_spec} tt-appe
 ##
 ## --------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 ${NAP_LUNA} ${output}/${id}/canonical.lst ${id} ${NAP_LUNA_ARGS} \
     adir=${output}/${id}/annots/ \
     -t ${output} ${dom_suds} \
@@ -460,6 +463,30 @@ mv ${output}/${id}/fixed_SOAP.txt ${output}/${id}/luna_suds_SOAP.txt
 ${NAP_FIXROWS} ID SS < ${output}/${id}/luna_suds_SOAP_SS.txt > ${output}/${id}/fixed_SOAP_SS.txt  
 mv ${output}/${id}/fixed_SOAP_SS.txt ${output}/${id}/luna_suds_SOAP_SS.txt
 
+=======
+echo "Checking if STAGES are present" >> $LOG
+set +e
+${NAP_LUNA} ${output}/${id}/canonical.lst ${id} -s 'CONTAINS stages' 2>> $ERR
+STAGES_EXISTS=$?
+set -e
+if [[ ${STAGES_EXISTS} -eq 1 ]]; then
+  echo "STAGES missing, skipping SOAP command..." >> $LOG
+else
+  echo "Running SOAP command..." >> $LOG
+  ${NAP_LUNA} ${output}/${id}/canonical.lst ${id} ${NAP_LUNA_ARGS} \
+      adir=${output}/${id}/annots/ \
+      -t ${output} ${dom_suds} \
+      -s 'SOAP sig=csEEG nc=10 th=5 lambda=0.5 epoch annot=NAP_soap annot-dir=${adir}' 2>> $ERR
+
+  # hack to unf*ck row-order formatting issue w/ -t option for some Luna commands
+  # not needed for 'E'
+  ${NAP_FIXROWS} ID   < ${output}/${id}/luna_suds_SOAP.txt > ${output}/${id}/fixed_SOAP.txt
+  mv ${output}/${id}/fixed_SOAP.txt ${output}/${id}/luna_suds_SOAP.txt
+
+  ${NAP_FIXROWS} ID SS < ${output}/${id}/luna_suds_SOAP_SS.txt > ${output}/${id}/fixed_SOAP_SS.txt
+  mv ${output}/${id}/fixed_SOAP_SS.txt ${output}/${id}/luna_suds_SOAP_SS.txt
+fi
+>>>>>>> 76f7003d65581fed694cd35d7bffeb3d68fa14fe
 
 ## --------------------------------------------------------------------------------
 ##
@@ -492,8 +519,64 @@ ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} \
 ##
 ## --------------------------------------------------------------------------------
 
+os_type=""
+matlab_exists=false
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        is_lsf=$(lsid | wc -l)
+        if [[ ! "${is_lsf}" -eq 0 ]]; then
+          os_type="LSF Cluster"
+          module avail matlab/2019b > tmp_matlab.txt 2>&1
+          module_exists=$(cat tmp_matlab.txt | wc -l)
+          rm tmp_matlab.txt
+          if [[ ! ${module_exists} -eq 0 ]]; then
+            matlab_exists=true
+            # load matlab module
+            module load matlab/2019b
+          fi
+        else
+          os_type="LINUX"
+          if [[ -d /usr/local/MATLAB ]]; then
+            matlab_exists=true
+          fi
+        fi
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+        os_type="MAC"
+        matlab_app_count=$(ls -l /Applications/MATLAB* | wc -l)
+        if [[ ! ${matlab_app_count} -eq 0 ]]; then
+          matlab_exists=true
+        fi
+elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
+        os_type="WIN"
+        win32_matlab_count=$(ls -l "C:\Program Files\MATLAB\*" | wc -l)
+        win64_matlab_count=$(ls -l "C:\Program Files (x86)\MATLAB\*" | wc -l)
+        if [[ ! ${win32_matlab_count} -eq 0 || ! ${win64_matlab_count} -eq 0 ]]; then
+          matlab_exists=true
+        fi
+else
+       os_type="UNKNOWN"
+fi
 
+echo "OS_TYPE is ${os_type}"
 
+if [[ "${matlab_exists}" = false ]]; then
+  echo "Matlab doesn't exist, skipping respiratory analysis"
+else
+  echo "Matlab installation found"
+
+  ${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} silent=T -o out.db -s CONTAINS sig=nas_pres
+  DO_RESP_ANALYSIS=$?
+  if [[ ${DO_RESP_ANALYSIS} -eq 0 ]]; then
+    echo "starting respiratory analysis"
+    edfname=${input}/${id}".edf"
+    #echo ${edfname}
+    outputresp=${input}/nap/${id}/
+    #echo ${outputresp}
+    #echo ${NAP_DIR}"/Flowsanitycheck"
+    matlab -nodisplay -r "FlowQcNsrr $edfname $outputresp" -sd ${NAP_DIR}"/Flowsanitycheck" -logfile ${outputresp}/outputconvert.log
+  else
+    echo "nas_pres channel missing, skipping respiratory analysis"
+  fi
+fi
 
 ## --------------------------------------------------------------------------------
 ##
@@ -524,7 +607,7 @@ echo "Compiling tables into RData files..." >> $LOG
 #      or  path/to/folder/text.txt-fig.RData
 # luna-shiny then automatically loads any *-tab.RData and *-fig.RData files
 
-# add fextract() calls into compile-tables.R to create particular 
+# add fextract() calls into coda2.R to create particular 
 # also see example for PSD plots for how to save / attach images
 #  these point to .png files, which can either be created in coda2.R based
 #  on summary stats, or indpendently (in which case a *-fig.RData file is created

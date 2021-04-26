@@ -1,0 +1,8 @@
+%NUMOM2B
+
+NUMOM2B	ECG	ECG	.	100	mV
+NUMOM2B	CAN	nas_pres	.	100	.
+NUMOM2B	THX	thorax	.	100	.
+NUMOM2B	ABD	abdomen	.	100	.
+NUMOM2B	OXY	spo2	.	4	.
+NUMOM2B	POS	position	.	1	.

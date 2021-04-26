@@ -1,0 +1,13 @@
+%ABC
+
+ABC	EEG	C4	M1	100	uV
+ABC	EMG	lchin	rchin	100	mV
+ABC	LOC	E1	M2	100	uV
+ABC	ROC	E2	M2	100	uV
+ABC	ECG	ECG1	ECG2	100	mV
+ABC	CAN	nas_pres	.	100	.
+ABC	TRM	flow	.	100	.
+ABC	THX	thorax	.	100	.	
+ABC	ABD	abdomen	.	100	.
+ABC	OXY	spo2	.	4	.
+ABC	POS	position	.	1	.

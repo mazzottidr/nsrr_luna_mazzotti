@@ -10,7 +10,7 @@ args = commandArgs(trailingOnly=TRUE)
 # -------------------------------------------------------------------------------
 
 if ( length(args) != 3 )
- stop( "usage: compile-tables.R <nap-script-folder> <nap-resources-folder> <nap-output-folder>" )
+ stop( "usage: coda2.R <nap-script-folder> <nap-resources-folder> <nap-output-folder>" )
 
 # ensure trailing folder delimiter
 
@@ -119,7 +119,7 @@ if ( length( nap.files ) > 0 ) {
 # By convention, we have special filename encoding to recognize particular outputs, e.g. HEADER-CH.txt
 #
 # nb. if a vector of transpose values is given, currently this transposes based on alphabetic table order
-# e.g. for SOAP-SUDS: this is the base ("") table only (based on alphabetic sort order) , so "_E", "_SS" then ""
+# e.g. for SOAP: this is the base ("") table only (based on alphabetic sort order) , so "_E", "_SS" then ""
 # 
 # ------------------------------------------------------------------------------------------------------
 

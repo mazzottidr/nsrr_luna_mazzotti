@@ -1,0 +1,20 @@
+%MNC
+
+MNC	EEG	C4	M1	100	uV
+MNC	EEG	C4	.	100	uV
+MNC	EMG	rchin	lchin	100	mV
+MNC	EMG	chin	.	100	mV
+MNC	EMG	cchin_l	.	100	mV
+MNC	LOC	E1	M2	100	uV
+MNC	LOC	E1	.	100	uV
+MNC	ROC	E2	M2	100	uV
+MNC	ROC	E2	.	100	uV
+MNC	ECG	ECG1	ECG2,ECG3	100	mV
+MNC	ECG	ECG,ECG2	.	100	mV
+MNC	ECG	ECG1_2	.	100	mV
+MNC	CAN	nas_pres	.	100	.
+MNC	TRM	therm	.	100	.
+MNC	THX	thorax	.	100	.
+MNC	ABD	abdomen	.	100	.
+MNC	OXY	spo2	.	4	.
+MNC	POS	position	.	1	.
