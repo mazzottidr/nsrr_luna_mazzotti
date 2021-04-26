@@ -133,7 +133,7 @@ try( fextract( nap.output.dir , "luna_spso_SPINDLES" , "Spindles/SO" , tables = 
 
 try( fextract( nap.output.dir , "luna_macro_HYPNO" , "NREM cycles" , tables = c( "_C" ) ,  transpose = T ) )
 
-try( fextract( nap.output.dir , "luna_suds_SOAP-SUDS" , "SOAP-SUDS" , tables = c( "" , "_SS" , "_E" ) , transpose = c(F,F,T) ) )
+try( fextract( nap.output.dir , "luna_suds_SOAP" , "SOAP" , tables = c( "" , "_SS" , "_E" ) , transpose = c(F,F,T) ) )
 
 
 

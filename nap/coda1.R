@@ -120,7 +120,7 @@ if ( dim(df)[1]>0)
 # ------------------------------------------------------------------------------------------------------
 
 try( { 
- mtm <- read.table( paste( nap.output.dir , "luna_spec_MTM_E_F_CH.txt.gz" , sep="/" ) , header=T , stringsAsFactors = F )
+ mtm <- read.table( paste( nap.output.dir , "luna_spec_MTM_F_CH_SEG.txt.gz" , sep="/" ) , header=T , stringsAsFactors = F )
  mtm$MTM <- 10*log10( mtm$MTM )
  mtm <- mtm[ mtm$F >= 0.5 , ] 
  spectrograms <- list( desc = "MTM EEG spectrograms" )
@@ -129,7 +129,7 @@ try( {
  { 
   png( file = paste( nap.output.dir , paste( "mtm-" , ch , ".png" , sep="" ) , sep="/" ) , res=100 , width=1000  , height = 400 )
   par(mar=c(1.5,2.5,0.5,0.5))
-  x <- mtm$E[ mtm$CH == ch ]
+  x <- mtm$SEG[ mtm$CH == ch ]
   y <- mtm$F[ mtm$CH == ch ]
   z <- mtm$MTM[ mtm$CH == ch ]
   nx <- length(unique(x))

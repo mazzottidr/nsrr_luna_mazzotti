@@ -279,8 +279,8 @@ ${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_stats} -s '
 ##
 ## --------------------------------------------------------------------------------
 
-echo "Running MTM EEG spectrogram..." >> $LOG
-${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_spec} -s 'MTM epoch-only max=25 min=0.5 nw=15 fac=2 sig=${eeg}' 2>> $ERR
+#echo "Running MTM EEG spectrogram..." >> $LOG
+#${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_spec} -s 'MTM segment-sec=30 segment-inc=5 min=0.5 max=25 nw=15 epoch sig=${eeg}' 2>> $ERR
 
 
 ## --------------------------------------------------------------------------------
@@ -301,7 +301,7 @@ echo "Compiling SIGSTATS and MTM spectograms into RData files..." >> $LOG
 #  on summary stats, or indpendently (in which case a *-fig.RData file is created
 #  which just points to the existing .png
 
-${NAP_R} ${NAP_DIR}/coda1.R ${NAP_DIR} ${NAP_RESOURCE_DIR} ${output}/${id} >> $ERR 2>&1
+#${NAP_R} ${NAP_DIR}/coda1.R ${NAP_DIR} ${NAP_RESOURCE_DIR} ${output}/${id} >> $ERR 2>&1
 
 
 ## --------------------------------------------------------------------------------
@@ -413,6 +413,21 @@ ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} \
 
 ## --------------------------------------------------------------------------------
 ##
+## SUDS 
+##
+## --------------------------------------------------------------------------------
+
+echo "Running SUDS on csEEG (assumes training data located at ${NAP_RESOURCE_DIR}/suds/)..."
+
+${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} \
+	    tpath=${NAP_RESOURCE_DIR}/suds \
+            apath=${output}/${id}/annots \
+            -t ${output} ${dom_suds} \
+            -s 'SUDS db=${tpath} sig=csEEG zpsd=1 robust=0.1 lambda=2 wgt-exp=4' > /dev/null 2>> $ERR
+
+
+## --------------------------------------------------------------------------------
+##
 ## NREM PSD
 ##
 ## --------------------------------------------------------------------------------
@@ -428,22 +443,23 @@ ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_spec} tt-appe
 
 ## --------------------------------------------------------------------------------
 ##
-## SOAP-SUDS (single EEG channel only)
+## SOAP (single EEG channel only)
 ##
 ## --------------------------------------------------------------------------------
 
 ${NAP_LUNA} ${output}/${id}/canonical.lst ${id} ${NAP_LUNA_ARGS} \
     adir=${output}/${id}/annots/ \
     -t ${output} ${dom_suds} \
-    -s 'SOAP-SUDS sig=csEEG nc=10 th=5 lambda=0.5 epoch annot=NAP_soap annot-dir=${adir}' 2>> $ERR
+    -s 'SOAP sig=csEEG nc=10 th=5 lambda=0.5 epoch annot=NAP_soap annot-dir=${adir}' 2>> $ERR
 
 # hack to unf*ck row-order formatting issue w/ -t option for some Luna commands
 # not needed for 'E'
-${NAP_FIXROWS} ID   < ${output}/${id}/luna_suds_SOAP-SUDS.txt > ${output}/${id}/fixed_SOAP-SUDS.txt
-mv ${output}/${id}/fixed_SOAP-SUDS.txt ${output}/${id}/luna_suds_SOAP-SUDS.txt
+${NAP_FIXROWS} ID   < ${output}/${id}/luna_suds_SOAP.txt > ${output}/${id}/fixed_SOAP.txt
+mv ${output}/${id}/fixed_SOAP.txt ${output}/${id}/luna_suds_SOAP.txt
 
-${NAP_FIXROWS} ID SS < ${output}/${id}/luna_suds_SOAP-SUDS_SS.txt > ${output}/${id}/fixed_SOAP-SUDS_SS.txt  
-mv ${output}/${id}/fixed_SOAP-SUDS_SS.txt ${output}/${id}/luna_suds_SOAP-SUDS_SS.txt
+${NAP_FIXROWS} ID SS < ${output}/${id}/luna_suds_SOAP_SS.txt > ${output}/${id}/fixed_SOAP_SS.txt  
+mv ${output}/${id}/fixed_SOAP_SS.txt ${output}/${id}/luna_suds_SOAP_SS.txt
+
 
 ## --------------------------------------------------------------------------------
 ##
