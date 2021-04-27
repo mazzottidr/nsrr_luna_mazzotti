@@ -13,15 +13,17 @@
 | apnea\_obstructive         | Obstructive Apnea                       |
 | apnea\_central             | Central Apnea                           |
 | apnea\_mixed               | Mixed Apnea                             |
+| hypopnea                   | Hypopnea (unspecified airflow reduction)|
 | hypopnea30                 | Hypopnea (30 percent airflow reduction) |
+| hypopnea50                 | Hypopnea (50 percent airflow reduction) |
+| hypopnea\_obstructive      | Obstructive Hypopnea                    |
+|hypopnea\_central           |    Central Hypopnea                     |
+| desat                      | SpO2 desaturation                       |
 | periodic\_breathing        | Periodic Breathing |
 |   CheyneStokes\_ breathing |     Cheyne Stokes Breathing            |
 | respiratory\_paradox       | Respiratory Paradox                     |
-| desat                      | SpO2 desaturation                       |
-| hypopnea50                 | Hypopnea (50 percent airflow reduction) |
-| hypopnea                   | Hypopnea (unspecified airflow reduction)|
-| hypopnea\_obstructive      | Obstructive Hypopnea                    |
-|hypopnea\_central           |    Central Hypopnea                     |
+
+
 ### Staging
 | Annotation                 | Definition                              |
 | -------------------------- | --------------------------------------- |
