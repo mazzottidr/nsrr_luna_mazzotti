@@ -569,6 +569,48 @@ destrat t_out/hypno.batch00*.db +HYPNO -v CONF
 ```
 Output looks fine, no conflicts
 
+
+## Canonical EDF's
+
+With the conversion of Original EDF's to Canonical EDF's, we will be performing the following:
+  - Regenerate Canonical Signals as listed in sigs.canonical file with 'cs' prefix
+  - Resample Canonical Signals as listed in sigs.canonical file
+  - Drop Signals that are not listed in sigs.canonical file
+
+Submit LSF jobs with the following input,
+
+TWIN
+```
+cat t_canonical.txt
+```
+
+```
+CANONICAL file=/PHShome/sx409/nsrr/studies/wsc/sigs.canonical group=WSC prefix=cs
+SIGNALS keep=csEEG,csEMG,csLOC,csROC,csECG,csCAN,csTRM,csTHX,csABD,csOXY,csPOS
+WRITE edf-dir=/PHShome/sx409/wsc/t_canonical/ edf-tag=canonical with-annots sample-list=/PHShome/sx409/wsc/t_canonical/canonical.lst
+```
+Run the job
+```
+/data/nsrr/bin/runner.sh 40 t_s.lst sigs.alias cmd/t_canonical.txt o t_out/canonical t_out/canonical
+```
+
+GAMMA
+
+```
+cat g_canonical.txt
+```
+
+```
+CANONICAL file=/PHShome/sx409/nsrr/studies/wsc/sigs.canonical group=WSC prefix=cs
+SIGNALS keep=csEEG,csEMG,csLOC,csROC,csECG,csCAN,csTRM,csTHX,csABD,csOXY,csPOS
+WRITE edf-dir=/PHShome/sx409/wsc/g_canonical/ edf-tag=canonical with-annots sample-list=/PHShome/sx409/wsc/g_canonical/canonical.lst
+```
+Run the job
+```
+/data/nsrr/bin/runner.sh 40 g_s.lst sigs.alias cmd/g_canonical.txt o g_out/canonical g_out/canonical
+```
+
+
 ## Summary
 In overall, we have completed the following:
 - [x] Input file check (consistency across all original scoring files)
