@@ -106,8 +106,14 @@ if ( length( nap.files ) > 0 ) {
       dt <- as.data.frame( cbind( names(dt) , t( dt ) ) )  
       names(dt) <- c("ID" , paste("R",1:(dim(dt)[2]-1),sep="" ) ) 
    } 
+
+# can remove ID (either col or row depending on transpose)
+  if ( ! transpose[g] ) dt$ID <- NULL
+  else dt <- dt[ dt$ID != "ID" , ]  
+
   data[[ nap.files.short[g] ]]$data <- dt
- }
+
+} 
  saveit( data , str = cmd , file = paste( outdir , cmd , "-tab.RData" , sep="" ) ) 
 }
 # all done
@@ -133,7 +139,9 @@ try( fextract( nap.output.dir , "luna_spso_SPINDLES" , "Spindles/SO" , tables = 
 
 try( fextract( nap.output.dir , "luna_macro_HYPNO" , "NREM cycles" , tables = c( "_C" ) ,  transpose = T ) )
 
-try( fextract( nap.output.dir , "luna_suds_SOAP" , "SOAP" , tables = c( "" , "_SS" , "_E" ) , transpose = c(F,F,T) ) )
+try( fextract( nap.output.dir , "luna_suds_SOAP" , "SOAP" , tables = c( "_E" , "_NSS_PRED_OBS" , "_SS" , "" ) , transpose = c(F,F,F,T) ) )
+
+try( fextract( nap.output.dir , "luna_suds_SUDS" , "SUDS" , tables = c( "_E" , "_NSS_PRED_OBS" , "_SS" , "" ) , transpose = c(F,F,F,T) ) )
 
 
 

@@ -128,7 +128,7 @@ try( {
  for (ch in chs)
  { 
   png( file = paste( nap.output.dir , paste( "mtm-" , ch , ".png" , sep="" ) , sep="/" ) , res=100 , width=1000  , height = 400 )
-  par(mar=c(1.5,2.5,0.5,0.5))
+  par(mar=c(1.5,2.5,1.5,0.5))
   x <- mtm$SEG[ mtm$CH == ch ]
   y <- mtm$F[ mtm$CH == ch ]
   z <- mtm$MTM[ mtm$CH == ch ]
@@ -144,6 +144,7 @@ try( {
   axis(1,0.95,labels="Epochs",tick=F,line=-1,cex.axis=0.8)
   axis(2,0.98,labels=paste(round(max(y)),"Hz ") ,line=-1,tick=F,las=2,cex.axis=0.8)
   axis(2,0.02,labels="0.5 Hz " ,tick=F,las=2,line=-1,cex.axis=0.8)
+  axis(3,0.05,labels=paste( "Channel:" , ch ) , tick=F , line=-1, cex.axis=1 )
   dev.off()
   spectrograms[[ ch ]] <- list( desc = ch , figure = paste( "mtm-" , ch , ".png" , sep="" )  )
 } # next EEG channel

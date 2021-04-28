@@ -167,7 +167,7 @@ fi
 # <command> <input folder/id> <output> 2>> $ERR
 
 #  ${input}         input folder (with 1 or more EDFs/annotations)
-#  ${inpiut}/s.lst  Luna format sample list (for 1 or more EDFs in this folder)
+#  ${input}/s.lst   Luna format sample list (for 1 or more EDFs in this folder)
 #  ${id}            ID of EDF (fileroot, id.edf)
 #  ${output}        output folder
 #  $ERR             standard error, redirected to:  ${output}/nap.err
@@ -267,20 +267,22 @@ echo "Running HYPNO..." >> $LOG
 ${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_macro} -s HYPNO 2>> $ERR
 
 echo "Running SIGSTATS..." >> $LOG
-${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_stats} -s 'SIGSTATS epoch sig=${eeg},${ecg},${emg},${eog},${airflow},${effort},${generic}' 2>> $ERR
+${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_stats} -s 'SIGSTATS epoch sr-over=50' 2>> $ERR
 
 echo "Running STATS..." >> $LOG
-${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_stats} -s 'STATS epoch sig=${light},${oxygen},${position},${hr}' 2>> $ERR
+${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_stats} -s 'STATS epoch sr-under=50' 2>> $ERR
 
 
 ## --------------------------------------------------------------------------------
 ##
-## MTM spectrograms (original EDF, all EEG channels)
+## MTM spectrograms (original EDF, all channels with SR>50)
 ##
 ## --------------------------------------------------------------------------------
 
-#echo "Running MTM EEG spectrogram..." >> $LOG
-#${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_spec} -s 'MTM segment-sec=30 segment-inc=5 min=0.5 max=25 nw=15 epoch sig=${eeg}' 2>> $ERR
+echo "Running MTM EEG spectrograms..." >> $LOG
+${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} \
+	    fs=${NAP_MTM_MIN_SAMPLE_RATE} \
+	    -t ${output} ${dom_spec} -s 'MTM segment-sec=30 segment-inc=10 min=0.5 max=25 nw=15 epoch sr=${fs}' 2>> $ERR
 
 
 ## --------------------------------------------------------------------------------
@@ -289,7 +291,7 @@ ${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_stats} -s '
 ##
 ## --------------------------------------------------------------------------------
 
-echo "Compiling SIGSTATS and MTM spectograms into RData files..." >> $LOG
+echo "Compiling SIGSTATS and MTM spectrograms into RData files..." >> $LOG
 
 # i.e.     path/to/folder/text.txt
 # becomes  path/to/folder/text.txt-tab.RData
@@ -301,7 +303,7 @@ echo "Compiling SIGSTATS and MTM spectograms into RData files..." >> $LOG
 #  on summary stats, or indpendently (in which case a *-fig.RData file is created
 #  which just points to the existing .png
 
-#${NAP_R} ${NAP_DIR}/coda1.R ${NAP_DIR} ${NAP_RESOURCE_DIR} ${output}/${id} >> $ERR 2>&1
+${NAP_R} ${NAP_DIR}/coda1.R ${NAP_DIR} ${NAP_RESOURCE_DIR} ${output}/${id} >> $ERR 2>&1
 
 
 ## --------------------------------------------------------------------------------
@@ -313,14 +315,14 @@ echo "Compiling SIGSTATS and MTM spectograms into RData files..." >> $LOG
 echo "Attempting to determine EEG polarity (of canonical EEG only)..." >> $LOG
 
 # write to a temporary, use pol.db rather than a text-table
+# expecting csEEG
 
 ${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} \
              csfile=${NAP_DEF_DIR}/sigs.canonical \
              group=${run} \
-             prefix=cs \
             -o ${output}/${id}/pol.db \
-	    -s 'MASK all & MASK unmask-if=NREM2,NREM3 & RE & 
-                CANONICAL file=${csfile} group=${group} prefix=${prefix} &
+	    -s 'MASK all & MASK unmask-if=N2,N3 & RE & 
+                CANONICAL file=${csfile} group=${group} &
                 CHEP-MASK sig=csEEG ep-th=2 & 
                 CHEP sig=csEEG epochs & RE & 
                 SPINDLES sig=csEEG fc=15 so mag=2 &
@@ -380,11 +382,10 @@ rm -rf ${output}/${id}/canonical.lst
 ${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} \
 	    csfile=${NAP_DEF_DIR}/sigs.canonical \
 	    group=${run} \
-            prefix=cs \
 	    outdir=${output}/${id} \
 	    flipchs=`cat ${output}/${id}/neg.chs` \
        -t ${output} ${dom_core} \
-       -s 'CANONICAL file=${csfile} group=${group} prefix=${prefix} & 
+       -s 'CANONICAL file=${csfile} group=${group} & 
            FLIP sig=${flipchs} & 
            SIGNALS keep=csEEG,csLOC,csROC,csEMG,csECG &
            FILTER bandpass=0.3,35 tw=0.5 ripple=0.02 sig=csEEG,csLOC,csROC &
@@ -419,13 +420,29 @@ ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} \
 ##
 ## --------------------------------------------------------------------------------
 
-echo "Running SUDS on csEEG (assumes training data located at ${NAP_RESOURCE_DIR}/suds/)..."
+echo "Looking for a SUDS training data at ${NAP_SUDS_DIR}"
 
-${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} \
-	    tpath=${NAP_RESOURCE_DIR}/suds \
-            apath=${output}/${id}/annots \
-            -t ${output} ${dom_suds} \
-            -s 'SUDS db=${tpath} sig=csEEG zpsd=1 robust=0.1 lambda=2 wgt-exp=4' > /dev/null 2>> $ERR
+if [ -d "${NAP_SUDS_DIR}" ] 
+then
+
+    echo "Running SUDS on csEEG w/ default parameteres"
+    
+    ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} \
+		tpath=${NAP_SUDS_DIR} \
+		apath=${output}/${id}/annots \
+		-t ${output} ${dom_suds} \
+		-s 'SUDS db=${tpath} sig=csEEG zpsd=1 robust=0.01 lambda=1 th-hjorth=5 wgt-exp=4' > /dev/null 2>> $ERR
+
+    # urgh... text-table fix rows required
+    ${NAP_FIXROWS} ID   < ${output}/${id}/luna_suds_SUDS.txt > ${output}/${id}/fixed_SUDS.txt
+    mv ${output}/${id}/fixed_SUDS.txt ${output}/${id}/luna_suds_SUDS.txt
+    
+    ${NAP_FIXROWS} ID SS < ${output}/${id}/luna_suds_SUDS_SS.txt > ${output}/${id}/fixed_SUDS_SS.txt
+    mv ${output}/${id}/fixed_SUDS_SS.txt ${output}/${id}/luna_suds_SUDS_SS.txt
+    
+else
+    echo "Skipping SUDS: no training data present"
+fi
 
 
 ## --------------------------------------------------------------------------------
@@ -437,10 +454,10 @@ ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} \
 echo "Running N2/N3 PSD..." >> $LOG
 
 ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_spec} tt-append=_SS-N2 \
- -s 'MASK ifnot=NREM2 & RE & PSD sig=csEEG dB max=25 spectrum' 2>> $ERR
+ -s 'MASK ifnot=N2 & RE & PSD sig=csEEG dB max=25 spectrum' 2>> $ERR
 
 ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_spec} tt-append=_SS-N3 \
- -s 'MASK ifnot=NREM3 & RE & PSD sig=csEEG dB max=25 spectrum' 2>> $ERR
+ -s 'MASK ifnot=N3 & RE & PSD sig=csEEG dB max=25 spectrum' 2>> $ERR
 
 
 ## --------------------------------------------------------------------------------
@@ -449,21 +466,6 @@ ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} -t ${output} ${dom_spec} tt-appe
 ##
 ## --------------------------------------------------------------------------------
 
-<<<<<<< HEAD
-${NAP_LUNA} ${output}/${id}/canonical.lst ${id} ${NAP_LUNA_ARGS} \
-    adir=${output}/${id}/annots/ \
-    -t ${output} ${dom_suds} \
-    -s 'SOAP sig=csEEG nc=10 th=5 lambda=0.5 epoch annot=NAP_soap annot-dir=${adir}' 2>> $ERR
-
-# hack to unf*ck row-order formatting issue w/ -t option for some Luna commands
-# not needed for 'E'
-${NAP_FIXROWS} ID   < ${output}/${id}/luna_suds_SOAP.txt > ${output}/${id}/fixed_SOAP.txt
-mv ${output}/${id}/fixed_SOAP.txt ${output}/${id}/luna_suds_SOAP.txt
-
-${NAP_FIXROWS} ID SS < ${output}/${id}/luna_suds_SOAP_SS.txt > ${output}/${id}/fixed_SOAP_SS.txt  
-mv ${output}/${id}/fixed_SOAP_SS.txt ${output}/${id}/luna_suds_SOAP_SS.txt
-
-=======
 echo "Checking if STAGES are present" >> $LOG
 set +e
 ${NAP_LUNA} ${output}/${id}/canonical.lst ${id} -s 'CONTAINS stages' 2>> $ERR
@@ -476,7 +478,7 @@ else
   ${NAP_LUNA} ${output}/${id}/canonical.lst ${id} ${NAP_LUNA_ARGS} \
       adir=${output}/${id}/annots/ \
       -t ${output} ${dom_suds} \
-      -s 'SOAP sig=csEEG nc=10 th=5 lambda=0.5 epoch annot=NAP_soap annot-dir=${adir}' 2>> $ERR
+      -s 'SOAP sig=csEEG nc=10 th=5 lambda=1 epoch annot=NAP_soap annot-dir=${adir}' 2>> $ERR
 
   # hack to unf*ck row-order formatting issue w/ -t option for some Luna commands
   # not needed for 'E'
@@ -486,7 +488,6 @@ else
   ${NAP_FIXROWS} ID SS < ${output}/${id}/luna_suds_SOAP_SS.txt > ${output}/${id}/fixed_SOAP_SS.txt
   mv ${output}/${id}/fixed_SOAP_SS.txt ${output}/${id}/luna_suds_SOAP_SS.txt
 fi
->>>>>>> 76f7003d65581fed694cd35d7bffeb3d68fa14fe
 
 ## --------------------------------------------------------------------------------
 ##
@@ -499,7 +500,7 @@ echo "Running SPINDLES (N2)..." >> $LOG
 ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} \
             -t ${output} ${dom_spso} tt-append=_SS-N2 \
 	    adir=${output}/${id}/annots/ \
-	    -s 'MASK ifnot=NREM2 & RE & 
+	    -s 'MASK ifnot=N2 & RE & 
                 CHEP-MASK sig=csEEG ep-th=3,3 & RE & 
                 SPINDLES sig=csEEG fc=11,15 so mag=2 nreps=10000 annot=NAP_spin-N2 annot-dir=${adir}' 2>> $ERR
 
@@ -508,7 +509,7 @@ echo "Running SPINDLES (N2+N3)..." >> $LOG
 ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} \
             adir=${output}/${id}/annots/ \
             -t ${output} ${dom_spso} tt-append=_SS-N23 \
-	    -s 'MASK all & MASK unmask-if=NREM2,NREM3 & RE & 
+	    -s 'MASK all & MASK unmask-if=N2,N3 & RE & 
                 CHEP-MASK sig=csEEG ep-th=3,3 & RE & 
                 SPINDLES sig=csEEG fc=11,15 so mag=2 nreps=10000 annot=NAP_spin-N23 annot-dir=${adir}' 2>> $ERR
 
@@ -519,64 +520,71 @@ ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} \
 ##
 ## --------------------------------------------------------------------------------
 
-os_type=""
-matlab_exists=false
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+if [[ ! ${NAP_RESP} -eq 0 ]]; then
+    
+    os_type=""
+    matlab_exists=false
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         is_lsf=$(lsid | wc -l)
         if [[ ! "${is_lsf}" -eq 0 ]]; then
-          os_type="LSF Cluster"
-          module avail matlab/2019b > tmp_matlab.txt 2>&1
-          module_exists=$(cat tmp_matlab.txt | wc -l)
-          rm tmp_matlab.txt
-          if [[ ! ${module_exists} -eq 0 ]]; then
-            matlab_exists=true
-            # load matlab module
-            module load matlab/2019b
-          fi
+            os_type="LSF Cluster"
+            module avail matlab/2019b > tmp_matlab.txt 2>&1
+            module_exists=$(cat tmp_matlab.txt | wc -l)
+            rm tmp_matlab.txt
+            if [[ ! ${module_exists} -eq 0 ]]; then
+		matlab_exists=true
+		# load matlab module
+		module load matlab/2019b
+            fi
         else
-          os_type="LINUX"
-          if [[ -d /usr/local/MATLAB ]]; then
-            matlab_exists=true
-          fi
+            os_type="LINUX"
+            if [[ -d /usr/local/MATLAB ]]; then
+		matlab_exists=true
+            fi
         fi
-elif [[ "$OSTYPE" == "darwin"* ]]; then
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
         os_type="MAC"
         matlab_app_count=$(ls -l /Applications/MATLAB* | wc -l)
         if [[ ! ${matlab_app_count} -eq 0 ]]; then
-          matlab_exists=true
+            matlab_exists=true
         fi
-elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
+    elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
         os_type="WIN"
         win32_matlab_count=$(ls -l "C:\Program Files\MATLAB\*" | wc -l)
         win64_matlab_count=$(ls -l "C:\Program Files (x86)\MATLAB\*" | wc -l)
         if [[ ! ${win32_matlab_count} -eq 0 || ! ${win64_matlab_count} -eq 0 ]]; then
-          matlab_exists=true
+            matlab_exists=true
         fi
-else
-       os_type="UNKNOWN"
+    else
+	os_type="UNKNOWN"
+    fi
+    
+    echo "OS_TYPE is ${os_type}"
+    
+    if [[ "${matlab_exists}" = false ]]; then
+	echo "Matlab doesn't exist, skipping respiratory analysis"
+    else
+	echo "Matlab installation found"
+	
+	${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} silent=T -s CONTAINS sig=nas_pres || true 
+	
+	DO_RESP_ANALYSIS=$?
+	
+	if [[ ${DO_RESP_ANALYSIS} -eq 0 ]]; then
+	    echo "starting respiratory analysis"
+	    edfname=${input}/${id}".edf"
+	    echo ${edfname}
+	    outputresp=${input}/nap/${id}/
+	    #echo ${outputresp}
+	    #echo ${NAP_DIR}"/Flowsanitycheck"
+	    ${NAP_MATLAB} -nodisplay -r "FlowQcNsrr $edfname $outputresp" -sd ${NAP_DIR}"/Flowsanitycheck" -logfile ${outputresp}/outputconvert.log
+	else
+	    echo "nas_pres channel missing, skipping respiratory analysis"
+	fi
+    fi
 fi
 
-echo "OS_TYPE is ${os_type}"
 
-if [[ "${matlab_exists}" = false ]]; then
-  echo "Matlab doesn't exist, skipping respiratory analysis"
-else
-  echo "Matlab installation found"
-
-  ${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} silent=T -o out.db -s CONTAINS sig=nas_pres
-  DO_RESP_ANALYSIS=$?
-  if [[ ${DO_RESP_ANALYSIS} -eq 0 ]]; then
-    echo "starting respiratory analysis"
-    edfname=${input}/${id}".edf"
-    #echo ${edfname}
-    outputresp=${input}/nap/${id}/
-    #echo ${outputresp}
-    #echo ${NAP_DIR}"/Flowsanitycheck"
-    matlab -nodisplay -r "FlowQcNsrr $edfname $outputresp" -sd ${NAP_DIR}"/Flowsanitycheck" -logfile ${outputresp}/outputconvert.log
-  else
-    echo "nas_pres channel missing, skipping respiratory analysis"
-  fi
-fi
 
 ## --------------------------------------------------------------------------------
 ##
