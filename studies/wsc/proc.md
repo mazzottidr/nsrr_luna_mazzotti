@@ -14,7 +14,9 @@ EDF Filename/ID format: three fields, hyphen separated
 COHORT_NAME VISIT_ID SLEEP_STUDY_ID
 ```
 Expecting n=743 studies/annotations TWIN
+
 Expecting n=1827 studies/annotations GAMMA
+
 ```
 ls ${TWIN_DIR}/*.edf | wc -l
 743
@@ -93,7 +95,7 @@ paste g_tmp/ids g_tmp/ids.stg | awk ' $1 != $2 '
 All the below mapping are listed in [nsrr-mapping](https://gitlab-scm.partners.org/zzz-public/nsrr/-/blob/master/common/annotationdefinitions.md) page
 
 ### GAMMA
-Gamma annots summary: stg file have all stage information. And sco files have all annots other than stages.
+Gamma annots summary: stg files have all stages information. And sco files have all annots other than stages.
 ```
 cat /data/nsrr/working/wsc-scoring-annotations/gamma/*sco.txt | awk -F"\t" ' {print $5} ' | sort | uniq -c | sort -nr > g_tmp/gamma.annots
 ```
@@ -128,10 +130,12 @@ do
   fi
 done
 ```
-File with header row other than 1: /data/nsrr/working/wsc-scoring-annotations/gamma/wsc-visit1-95797sco.txt
-File with header row other than 1: /data/nsrr/working/wsc-scoring-annotations/gamma/wsc-visit1-97405sco.txt
+Files with header row other than 1 are:
 
-Manual verified that these two files have double header rows
+ - /data/nsrr/working/wsc-scoring-annotations/gamma/wsc-visit1-95797sco.txt
+ - /data/nsrr/working/wsc-scoring-annotations/gamma/wsc-visit1-97405sco.txt
+
+Manually verified that these two files have double header rows
 
 Let's dump all Gamma Stages now,
 ```
@@ -520,6 +524,30 @@ Twin:
   12113 200
 ```
 
+## Check EDF duration
+
+Gamma:
+```
+destrat g_tmp/headers.db +HEADERS -v REC_DUR | awk ' NR!=1 { print $2 } ' | sort | uniq -c
+```
+
+```
+      8 10
+      2 6
+     79 7
+    654 8
+```
+No floating values, output looks fine
+
+Twin:
+```
+destrat t_tmp/headers.db +HEADERS -v REC_DUR | awk ' NR!=1 { print $2 } ' | sort | uniq -c
+```
+
+```
+   1614 1
+```
+No floating values, output looks fine
 
 
 ## Check sleep macro-architecture
@@ -585,9 +613,9 @@ cat t_canonical.txt
 ```
 
 ```
-CANONICAL file=/PHShome/sx409/nsrr/studies/wsc/sigs.canonical group=WSC prefix=cs
+CANONICAL file=nsrr/studies/wsc/sigs.canonical group=WSC prefix=cs
 SIGNALS keep=csEEG,csEMG,csLOC,csROC,csECG,csCAN,csTRM,csTHX,csABD,csOXY,csPOS
-WRITE edf-dir=/PHShome/sx409/wsc/t_canonical/ edf-tag=canonical with-annots sample-list=/PHShome/sx409/wsc/t_canonical/canonical.lst
+WRITE edf-dir=t_canonical/ edf-tag=canonical with-annots sample-list=t_canonical/canonical.lst
 ```
 Run the job
 ```
@@ -601,14 +629,16 @@ cat g_canonical.txt
 ```
 
 ```
-CANONICAL file=/PHShome/sx409/nsrr/studies/wsc/sigs.canonical group=WSC prefix=cs
+CANONICAL file=nsrr/studies/wsc/sigs.canonical group=WSC prefix=cs
 SIGNALS keep=csEEG,csEMG,csLOC,csROC,csECG,csCAN,csTRM,csTHX,csABD,csOXY,csPOS
-WRITE edf-dir=/PHShome/sx409/wsc/g_canonical/ edf-tag=canonical with-annots sample-list=/PHShome/sx409/wsc/g_canonical/canonical.lst
+WRITE edf-dir=g_canonical/ edf-tag=canonical with-annots sample-list=g_canonical/canonical.lst
 ```
 Run the job
 ```
 /data/nsrr/bin/runner.sh 40 g_s.lst sigs.alias cmd/g_canonical.txt o g_out/canonical g_out/canonical
 ```
+
+All the canonical EDF's and sample lists are available in t_canonical and g_canonical folders
 
 
 ## Summary
@@ -621,5 +651,6 @@ In overall, we have completed the following:
 - [x] Basic channel/annotation label harmonization 
 - [x] checks of sample rates and EDF duration
 - [x] Sleep Macro Architecture
+- [x] Canonicals generation
 - [ ] Post Original EDFs, Canonical EDF's, annotations, excludes, annots/stages list, Channels and the README on NSRR
 
