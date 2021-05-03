@@ -640,6 +640,10 @@ Run the job
 
 All the canonical EDF's and sample lists are available in t_canonical and g_canonical folders
 
+## Notes:
+- In GAMMA, there are occurences of "Central Hypopnea" and "Onstructive Hypopnea" in file "wsc-visit2-33842sco.txt" and "wsc-visit1-59707sco.txt" respectively. These occurences are actually meant to be "Hypopnea". This is taken care of in the annotation file conversion script.
+- PLM and PLME events are present in GAMMA study. But WSC team has not scored any PLM events so we have tagged these events under "misc" category in annotation file conversion script.
+
 
 ## Summary
 In overall, we have completed the following:
