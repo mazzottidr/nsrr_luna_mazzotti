@@ -209,7 +209,7 @@ Mappings for annot file creation
 | annot | NSRR |
 | ------ | ------ |
 |DESATURATION|desat|
-|AROUSAL SPONTANEOUS arousal_spontaneous|
+|AROUSAL SPONTANEOUS| arousal_spontaneous|
 |AROUSAL RESPIRATORY EVENT|   arousal_respiratory|
 |AROUSAL LM|  arousal_lm|
 |RESPIRATORY EVENT HYPOPNEA|  hypopnea|
