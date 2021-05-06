@@ -1,12 +1,12 @@
 %PATS
 
-PATS	EEG	C4	M1	100	uV
-PATS	EMG	rchin	lchin	100	mV
-PATS	LOC	E1	M2	100	uV
-PATS	ROC	E2	M2	100	mV
-PATS	ECG	ECG1	ECG2	100	mV
-PATS	CAN	nas_pres	.	100	.
-PATS	THX	thorax	.	100	.
-PATS	ABD	abdomen	.	100	.
-PATS	OXY	spo2	.	4	.
-PATS	POS	position	.	1	.
+PATS	csEEG	C4	M1	100	uV
+PATS	csEMG	rchin	lchin	100	mV
+PATS	csLOC	E1	M2	100	uV
+PATS	csROC	E2	M2	100	mV
+PATS	csECG	ECG1	ECG2	100	mV
+PATS	csCAN	nas_pres	.	100	.
+PATS	csTHX	thorax	.	100	.
+PATS	csABD	abdomen	.	100	.
+PATS	csOXY	spo2	.	4	.
+PATS	csPOS	position	.	1	.
