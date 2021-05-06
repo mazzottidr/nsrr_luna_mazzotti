@@ -1,13 +1,13 @@
 %CHAT
 
-CHAT	EEG	C4	M1	100	uV
-CHAT	EMG	rchin	lchin	100	mV
-CHAT	LOC	E1	M2	100	uV
-CHAT	ROC	E2	M2	100	uV
-CHAT	ECG	ECG1	ECG2	100	mV
-CHAT	CAN	nas_pres	.	100	.
-CHAT	TRM	flow	.	100	.
-CHAT	THX	thorax	.	100	.
-CHAT	ABD	abdomen	.	100	.
-CHAT	OXY	spo2	.	4	.
-CHAT	POS	position	.	1	.
+CHAT	csEEG	C4	M1	100	uV
+CHAT	csEMG	rchin	lchin	100	mV
+CHAT	csLOC	E1	M2	100	uV
+CHAT	csROC	E2	M2	100	uV
+CHAT	csECG	ECG1	ECG2	100	mV
+CHAT	csCAN	nas_pres	.	100	.
+CHAT	csTRM	flow	.	100	.
+CHAT	csTHX	thorax	.	100	.
+CHAT	csABD	abdomen	.	100	.
+CHAT	csOXY	spo2	.	4	.
+CHAT	csPOS	position	.	1	.
