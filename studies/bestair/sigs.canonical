@@ -1,17 +1,17 @@
 %BESTAIR
 
-BESTAIR	EEG	C4	M1	100	uV
-BESTAIR	EEG	C4_M1	.	100	uV
-BESTAIR	EMG	chin	.	100	mV
-BESTAIR	EMG	cchin_l	.	100	mV
-BESTAIR	EMG	rchin	lchin	100	mV
-BESTAIR	EMG	rchin_c	.	100	mV
-BESTAIR	LOC	E1	.	100	uV
-BESTAIR	ROC	E2	.	100	uV
-BESTAIR	ECG	ECG	.	100	mV
-BESTAIR	CAN	nas_pres	.	100	.
-BESTAIR	TRM	therm	.	100	.
-BESTAIR	THX	thorax	.	100	.
-BESTAIR	ABD	abdomen	.	100	.
-BESTAIR	OXY	spo2	.	4	.
-BESTAIR	POS	position	.	1	.
+BESTAIR	csEEG	C4	M1	100	uV
+BESTAIR	csEEG	C4_M1	.	100	uV
+BESTAIR	csEMG	chin	.	100	mV
+BESTAIR	csEMG	cchin_l	.	100	mV
+BESTAIR	csEMG	rchin	lchin	100	mV
+BESTAIR	csEMG	rchin_c	.	100	mV
+BESTAIR	csLOC	E1	.	100	uV
+BESTAIR	csROC	E2	.	100	uV
+BESTAIR	csECG	ECG	.	100	mV
+BESTAIR	csCAN	nas_pres	.	100	.
+BESTAIR	csTRM	therm	.	100	.
+BESTAIR	csTHX	thorax	.	100	.
+BESTAIR	csABD	abdomen	.	100	.
+BESTAIR	csOXY	spo2	.	4	.
+BESTAIR	csPOS	position	.	1	.
