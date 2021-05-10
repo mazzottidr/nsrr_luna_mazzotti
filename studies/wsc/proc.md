@@ -613,7 +613,8 @@ cat t_canonical.txt
 ```
 
 ```
-CANONICAL file=nsrr/studies/wsc/sigs.canonical group=WSC prefix=cs
+ANON
+CANONICAL file=nsrr/studies/wsc/sigs.canonical group=WSC
 SIGNALS keep=csEEG,csEMG,csLOC,csROC,csECG,csCAN,csTRM,csTHX,csABD,csOXY,csPOS
 WRITE edf-dir=t_canonical/ edf-tag=canonical with-annots sample-list=t_canonical/canonical.lst
 ```
@@ -629,7 +630,8 @@ cat g_canonical.txt
 ```
 
 ```
-CANONICAL file=nsrr/studies/wsc/sigs.canonical group=WSC prefix=cs
+ANON
+CANONICAL file=nsrr/studies/wsc/sigs.canonical group=WSC
 SIGNALS keep=csEEG,csEMG,csLOC,csROC,csECG,csCAN,csTRM,csTHX,csABD,csOXY,csPOS
 WRITE edf-dir=g_canonical/ edf-tag=canonical with-annots sample-list=g_canonical/canonical.lst
 ```
