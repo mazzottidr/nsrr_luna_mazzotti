@@ -111,21 +111,21 @@ echo
 # as defined in NAP_SLST_BUILD_FLAGS: e.g. -ext=-nsrr.xml
 
 if [[ ! -f "${input}/s.lst" ]]; then
- echo "Compiling sample list :  ${input}/s.lst "
- luna --build ${input} ${NAP_SLST_BUILD_FLAGS} | sed 's/\.\///g' > ${input}/s.lst
- # check that this worked
- if [[ ! -f "${input}/s.lst" ]]; then
+  echo "Compiling sample list :  ${input}/s.lst "
+  ${NAP_LUNA} --build ${input} ${NAP_SLST_BUILD_FLAGS} | sed 's/\.\///g' > ${input}/s.lst
+  # check that this worked
+  if [[ ! -f "${input}/s.lst" ]]; then
     echo "could not find sample-list ${input}, bailing"
     exit 1
- elif [ -f /usr/local/bin/aws ]; then
+  elif [ ${NAP_AWS_PORTAL_MODE} -eq 1 ] && [ command -v ${NAP_AWS_CLI} &> /dev/null ]; then
     s_path="$(echo ${NAP_DIR} |  cut -d'/' -f4-5)"
     echo "Copying sample list now"
-    aws s3 --profile s3tolocal cp s.lst s3://nap-nsrr/${s_path}"/"
- else
-    echo "aws cli is not installed, skipping upload of sample list from NAP"
- fi
+    ${NAP_AWS_CLI} s3 --profile ${NAP_AWS_PROFILE} cp s.lst s3://nap-nsrr/${s_path}"/"
+  else
+   echo "AWS Portal mode is off or AWS cli is not installed, skipping upload of sample list from NAP"
+  fi
 else
- echo "Using existing sample list :  ${input}/s.lst " 
+   echo "Using existing sample list :  ${input}/s.lst " 
 fi
 
 slist="${input}/s.lst"

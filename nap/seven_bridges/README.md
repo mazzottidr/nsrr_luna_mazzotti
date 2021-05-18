@@ -19,25 +19,30 @@ Following are needed to run NAP in Seven Bridges Platform
 1. Create new Tool -> Go to Projects -> Choose a project -> Click on  Apps -> 
    "Add App" -> "Create New App" -> "Create a Tool" 
 
-2. Copy the NAP CWL json file (cwl_nap.json) and paste into the new tool,
+2. Copy the NAP CWL json file content (cwl_nap.json) and paste into the new tool:
    Select the new app -> Click Edit -> Click on Code
    Replace all the default content listed in the Code section with NAP CWL json file content
 
 3. Update the following:
- - As the label is listed as "nap", tool will be renamed to "nap". If you want to rename the tool name, you will have to update the "label" key value with the new tool name.
- - As NAP configuration variables NAP_LUNA_ARGS and NAP_DEF_DIR have to be passed at run time (for non-NSRR studies), you can update in baseCommand section with these values. Also, make sure that at run time of the app, inputs provided to study_sigs_alias and common_dir match with NAP_LUNA_ARGS file and NAP_DEF_DIR directory respectively.
- - Update the cohort info, for example if dataset is ABC then go to 2nd element(position 1) in arguments section and  update valueFrom as "ABC"
+ - As the label is listed as "nap" in NAP CWL json file, this new created tool will be renamed to "nap". If you want to change the tool name, you will have to update the "label" key value with the tool name.
 
 4. Click on Run and Save button at the top right corner.
 
-5. Now, you will be prompted to provide Input ports with Cohort folder (to perform analysis on) and NAP configuration file.
+5. Now, you will be prompted to provide Inputs:
+ - definition_dir: Select the folder with sigs.canonical file provided canonical definitions for the specified run name of the study.
+ - input_conf: Select the user-defined NAP configuration file
+ - input_dir: Select the folder with study files i.e., EDF's and annotation files
+ - sigs_alias: Select the file with Signal aliases specific to the study
+ - run_name: Input String with value of the run name of the study. (Should match with run name in sigs.canonical file)
 
 6. Once input ports selections is complete, Click on "Run" to start the app
 
 
 ## Output
 
-Output will be listed in the Project's Files section. Based on the NAP_OUTPUT variable value in the configuration file, output may be in the form of Folder or Tar file
+Output will be listed in the Project's Files section. There are two types of outputs: Wrapper log and 'NAP' output
+
+Wrapper log "nap_wrapper_log.txt" file contains run time terminal log. Whereas 'NAP' output is a set of files and folder generated from the NSRR Automated pipeline. Based on the NAP_OUTPUT variable value in the configuration file, output may be in the form of Folder or Tar file
 
 Successful NAP CWL run output_options
 ![NAP run Output](images/output_options.png "NAP CWL run output options")
@@ -45,7 +50,4 @@ Successful NAP CWL run output_options
 
 ## Notes
 
-1. In the app, run_label may have to be updated from time to time for different Cohorts to correctly reflect the (to-be-run-on) Cohort's canonical information from the common/sigs.canonical file. To make the change, 
- - Option 1: Update through Visual editor - Click on Edit the app -> go to Visual editor -> replace the argument value with the appropriate Cohort identifier
- - Option 2: Update through code - update valueFrom under arguments with the appropriate Cohort identifier
- 
+1. Please refer to Defaul NAP configuration file (default.conf) for additional configuration options

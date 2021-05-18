@@ -173,3 +173,24 @@
 #  Value can be "FILE" or "DIRECTORY" (in all caps)
 #  If value is "FILE", then NAP outputs a .tar.gz file with name as a combination of run name and start time.
 #  If values is "DIRECTORY", then NAP outputs a directory with name as a combination of run name and start time.
+#
+#  NAP_AWS_PORTAL_MODE
+#  This variable represents if the Portal mode is turned on (for Portal use case only)
+#  Values are 1,0 for on/off
+#
+#  NAP_AWS_CLI
+#  This variable list the path to AWS cli installed location (for Portal use case only)
+#
+#  NAP_AWS_PROFILE
+#  This variable represents the AWS named profile for copying sample list to s3 bucket (for Portal use case only)
+#
+#  NAP_SLST_BUILD_FLAGS
+#  This variable represents the Luna Sample list build flag. 
+#  Refer to http://zzz.bwh.harvard.edu/luna/luna/args/#-build-option for additional info 
+#
+#  NAP_MATLAB
+#  This variable list the path to matlab installed location
+#
+#  NAP_RESP
+#  This variable represents if respiratory analysis is enabled or not
+#  Values are 1,0 for on/off

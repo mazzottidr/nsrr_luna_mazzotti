@@ -145,7 +145,7 @@ echo >> $LOG
 
 if [[ ! -f "${input}/s.lst" ]]; then
  echo "Compiling sample list :  ${input}/s.lst " >> $LOG
- ${NAP_LUNA} --build ${input} > ${input}/s.lst
+ ${NAP_LUNA} --build ${input} ${NAP_SLST_BUILD_FLAGS} | sed 's/\.\///g' > ${input}/s.lst
  # check that this worked
  if [[ ! -f "${input}/s.lst" ]]; then
     echo "could not find sample-list ${input}, bailing"
@@ -520,70 +520,33 @@ ${NAP_LUNA} ${canonical} ${id} ${NAP_LUNA_ARGS} \
 ##
 ## --------------------------------------------------------------------------------
 
-if [[ ! ${NAP_RESP} -eq 0 ]]; then
-    
-    os_type=""
-    matlab_exists=false
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        is_lsf=$(lsid | wc -l)
-        if [[ ! "${is_lsf}" -eq 0 ]]; then
-            os_type="LSF Cluster"
-            module avail matlab/2019b > tmp_matlab.txt 2>&1
-            module_exists=$(cat tmp_matlab.txt | wc -l)
-            rm tmp_matlab.txt
-            if [[ ! ${module_exists} -eq 0 ]]; then
-		matlab_exists=true
-		# load matlab module
-		module load matlab/2019b
-            fi
-        else
-            os_type="LINUX"
-            if [[ -d /usr/local/MATLAB ]]; then
-		matlab_exists=true
-            fi
-        fi
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        os_type="MAC"
-        matlab_app_count=$(ls -l /Applications/MATLAB* | wc -l)
-        if [[ ! ${matlab_app_count} -eq 0 ]]; then
-            matlab_exists=true
-        fi
-    elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
-        os_type="WIN"
-        win32_matlab_count=$(ls -l "C:\Program Files\MATLAB\*" | wc -l)
-        win64_matlab_count=$(ls -l "C:\Program Files (x86)\MATLAB\*" | wc -l)
-        if [[ ! ${win32_matlab_count} -eq 0 || ! ${win64_matlab_count} -eq 0 ]]; then
-            matlab_exists=true
-        fi
-    else
-	os_type="UNKNOWN"
-    fi
-    
-    echo "OS_TYPE is ${os_type}"
-    
-    if [[ "${matlab_exists}" = false ]]; then
-	echo "Matlab doesn't exist, skipping respiratory analysis"
-    else
-	echo "Matlab installation found"
-	
-	${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} silent=T -s CONTAINS sig=nas_pres || true 
-	
-	DO_RESP_ANALYSIS=$?
-	
-	if [[ ${DO_RESP_ANALYSIS} -eq 0 ]]; then
-	    echo "starting respiratory analysis"
-	    edfname=${input}/${id}".edf"
-	    echo ${edfname}
-	    outputresp=${input}/nap/${id}/
-	    #echo ${outputresp}
-	    #echo ${NAP_DIR}"/Flowsanitycheck"
-	    ${NAP_MATLAB} -nodisplay -r "FlowQcNsrr $edfname $outputresp" -sd ${NAP_DIR}"/Flowsanitycheck" -logfile ${outputresp}/outputconvert.log
-	else
-	    echo "nas_pres channel missing, skipping respiratory analysis"
-	fi
-    fi
-fi
+if [[ ${NAP_RESP} -eq 1 ]]; then
 
+  # Check and load matlab module on LSF cluster
+  if [ $NAP_JOBN -gt 1 ]; then
+    module avail matlab/2019b > tmp_matlab.txt 2>&1
+    matlab_module_exists=$(cat tmp_matlab.txt | wc -l)
+    rm tmp_matlab.txt
+    if [[ ! ${matlab_module_exists} -eq 0 ]]; then
+      # load matlab module
+      module load matlab/2019b
+    else
+      echo "Matab 2019b module not found on cluster, bailing.."
+      exit 1
+    fi
+  fi
+
+  ${NAP_LUNA} ${input}/s.lst ${id} ${NAP_LUNA_ARGS} silent=T -s CONTAINS sig=nas_pres || true 
+  DO_RESP_ANALYSIS=$?
+  if [[ ${DO_RESP_ANALYSIS} -eq 0 ]]; then
+    echo "Starting Respiratory Analysis"
+    edfname=$(${NAP_LUNA} ${input}/s.lst ${id} silent=T -s DESC | grep -e "EDF filename" | cut -d':' -f2 | awk '{$1=$1;print}')
+    echo "EDF is ${edfname}"
+    ${NAP_MATLAB} -nodisplay -r "FlowQcNsrr $edfname ${output}/${id}/" -sd ${NAP_DIR}"/Flowsanitycheck" -logfile ${output}/${id}/outputconvert.log
+  else
+    echo "nas_pres channel missing, skipping respiratory analysis"
+  fi
+fi
 
 
 ## --------------------------------------------------------------------------------
