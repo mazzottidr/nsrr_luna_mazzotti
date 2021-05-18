@@ -616,6 +616,7 @@ cat t_canonical.txt
 ANON
 CANONICAL file=nsrr/studies/wsc/sigs.canonical group=WSC
 SIGNALS keep=csEEG,csEMG,csLOC,csROC,csECG,csCAN,csTRM,csTHX,csABD,csOXY,csPOS
+MINMAX sig=csEEG,csLOC,csROC
 WRITE edf-dir=t_canonical/ edf-tag=canonical with-annots sample-list=t_canonical/canonical.lst
 ```
 Run the job
@@ -633,6 +634,7 @@ cat g_canonical.txt
 ANON
 CANONICAL file=nsrr/studies/wsc/sigs.canonical group=WSC
 SIGNALS keep=csEEG,csEMG,csLOC,csROC,csECG,csCAN,csTRM,csTHX,csABD,csOXY,csPOS
+MINMAX sig=csEEG,csLOC,csROC
 WRITE edf-dir=g_canonical/ edf-tag=canonical with-annots sample-list=g_canonical/canonical.lst
 ```
 Run the job
