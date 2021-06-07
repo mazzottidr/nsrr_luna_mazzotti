@@ -11,6 +11,6 @@
 | `csCAN` | Nasal cannula | 100 Hz | . |
 | `csTRM` | Thermister | 100 Hz | . |
 | `csTHX` | Thorax effort |100 Hz | . |
-| `csABD` | Abdomenal effort |100 Hz | . |
+| `csABD` | Abdominal effort |100 Hz | . |
 | `csOXY` | SpO2 | 4 Hz | . |
 | `csPOS` | Position | 1 Hz | . |
