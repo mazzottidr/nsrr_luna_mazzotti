@@ -1,107 +1,92 @@
-(Note: all EEG channels have an explicit  {active}_{reference} label:  i.e. so always C3_M2, etc.)
 
 ### EEG
+
+All EEG channels should have an explicit in the form {active}_{reference}: e.g. `C3_M2` or `C3_LM`.
+
 | Channel | Description          |
 | ------- | -------------------- |
-| AVG     | Average reference    |
-| C3      | C3                   |
-| C4      | C4                   |
-| Cz      | Cz                   |
-| F3      | F3                   |
-| F4      | F4                   |
-| F7      | F7                   |
-| F8      | F8                   |
-| Fp1     | Fp1                  |
-| Fp2     | Fp2                  |
-| Fpz     | Fpz                  |
-| Fz      | Fz                   |
-| LM      | Linked Mastoid       |
-| M1      | M1 (A1 mapped to M1) |
-| M2      | M2 (A2 mapped to M2) |
-| O1      | O1                   |
-| O2      | O2                   |
-| P3      | P3                   |
-| P4      | P4                   |
-| Pg1     | Pg1                  |
-| Pg2     | Pg2                  |
-| Pz      | Pz                   |
-| REF     | Unknown Reference    |
-| T3      | T3                   |
-| T4      | T4                   |
-| T5      | T5                   |
-| T6      | T6                   |
-
-### ECG
-| Channel    | Description             |
-| ---------- | ----------------------- |
-| ECG        | ECG, may be bipolar, e.g  ECG1 referenced to ECG2                  |
-
-
-### EMG
-| Channel  | Description                                   |
-| -------- | --------------------------------------------- |
-| EMG      | Chin EMG, may be bipolar, e.g. left chin referenced to center chin                                      |
-| larm     | Left Arm EMG                                  |
-| lleg     | Left leg EMG                                  |
-| rarm     | Right arm EMG                                 |
-| rleg     | Right leg EMG                                 |
-
+| `C3` `C4` `Cz` `F3` `F4` `F7` `F8` `Fz` `Fp1` `Fp2` `Fpz` <br>`O1` `O2` `P3` `P4` `Pg1` `Pg2` `Pz` `T3` `T4` `T5` `T6` | Standard EEG channels |
+| `M1` `M2` | Mastoid references (`A1` and `A2` mapped to `M1` and `M2`) |
+| `AVG`     | Average reference    |
+| `LM`      | Linked mastoid reference |
+| `REF`     | Unknown reference    |
 
 ### EOG
+
+All EOG channels should have an explicit in the form {active}_{reference}: e.g. `E1_M2` or `E2_M2`.
+
 | Channel | Description                |
 | ------- | -------------------------- |
-| E1      | Left EOG                   |
-| E2      | Right EOG                  |
+| `E1`      | Left EOG                   |
+| `E2`      | Right EOG                  |
+
+### ECG
+
+| Channel    | Description             |
+| ---------- | ----------------------- |
+| `ECG`        | ECG, may be bipolar, e.g  ECG1 referenced to ECG2  |
+
+### EMG
+
+| Channel  | Description                                   |
+| -------- | --------------------------------------------- |
+| `EMG`         | Bipiolar chin EMG, e.g. left chin referenced to center chin |
+| `lchin` `rchin` `cchin` | Chin EMG (left, right and central) |
+| `larm` `rarm` | Left/right arm EMG |
+| `lleg` `rleg` | Left/right leg EMG  |
 
 
 ### Respiratory
+
 | Channel   | Description                      |
 | --------- | -------------------------------- |
-| abdomen   | Abdominal Effort                 |
-| altflow   | Alternate flow channnel          |
-| cap       | Capnography                      |
-| dif\_pres | Differential Pressure            |
-| etco2     | End Tidal CO2                    |
-| etco2w    | End Tidal CO2 Waveform           |
-| ex\_pres  | Expiratory Pressure              |
-| flow      | Airflow                          |
-| in\_pres  | Inspiratory Pressure             |
-| leak      | Leak                             |
-| nas\_pres | Nasal Pressure                   |
-| pap\_flow | CPAP flow                        |
-| pap\_pres | CPAP pressure                    |
-| pap\_vol  | CPAP volume                      |
-| pao2      | PaO2                             |
-| resprate  | Respiratory Rate                 |
-| RMI       | Respiratory Mechanic Instability |
-| snore     | Snore                            |
-| spo2      | SpO2                             |
-| sum       | Sum                              |
-| tcco2     | Transcutaneous CO2               |
-| therm     | Thermistor                       |
-| thorax    | Thoracic Effort                  |
-| tvol      | Tidal Volume                     |
+| `abdomen`   | Abdominal Effort                 |
+| `altflow`   | Alternate flow channnel          |
+| `cap`       | Capnography                      |
+| `dif_pres`  | Differential Pressure            |
+| `etco2`     | End Tidal CO2                    |
+| `etco2w`    | End Tidal CO2 Waveform           |
+| `ex_pres`   | Expiratory Pressure              |
+| `flow`      | Airflow                          |
+| `in_pres`   | Inspiratory Pressure             |
+| `leak`      | Leak                             |
+| `nas_pres`  | Nasal Pressure                   |
+| `pap_flow`  | CPAP flow                        |
+| `pap_pres`  | CPAP pressure                    |
+| `pap_vol`   | CPAP volume                      |
+| `pao2`      | PaO2                             |
+| `resprate`  | Respiratory Rate                 |
+| `RMI`       | Respiratory Mechanic Instability |
+| `snore`     | Snore                            |
+| `spo2`      | SpO2                             |
+| `sum`       | Sum                              |
+| `tcco2`     | Transcutaneous CO2               |
+| `therm`     | Thermistor                       |
+| `thorax`    | Thoracic Effort                  |
+| `tvol`      | Tidal Volume                     |
 
-### Other
+### Misc
+
 | Channel   | Description            |
 | --------- | ---------------------- |
-| activity  | Activity               |
-| battery   | Battery                |
-| cap       | Capnography            |
-| DHR       | Derived Heart Rate     |
-| elevation | Elevation              |
-| grav      | Gravity                |
-| gravx     | Gravity X              |
-| gravy     | Gravity Y              |
-| hr        | Heart Rate             |
-| light     | Light                  |
-| man\_pos  | Manual Position        |
-| oxstat    | Oximeter Status        |
-| phase     | Phase                  |
-| pleth     | Plethysmography        |
-| plethstat | Plethysmography Status |
-| position  | Body Position          |
-| PTT       | Pulse Transit Time     |
-| pulse     | Pulse                  |
-| r\_r      | RR interval            |
+| `activity`  | Activity               |
+| `battery`   | Battery                |
+| `cap`       | Capnography            |
+| `DHR`       | Derived Heart Rate     |
+| `elevation` | Elevation              |
+| `grav`      | Gravity                |
+| `gravx`     | Gravity X              |
+| `gravy`     | Gravity Y              |
+| `hr`        | Heart Rate             |
+| `light`     | Light                  |
+| `man_pos` | Manual Position        |
+| `oxstat`    | Oximeter Status        |
+| `phase`     | Phase                  |
+| `pleth`     | Plethysmography        |
+| `plethstat` | Plethysmography Status |
+| `position`  | Body Position          |
+| `PTT`       | Pulse Transit Time     |
+| `pulse`     | Pulse                  |
+| `r_r`      | RR interval            |
+
 
