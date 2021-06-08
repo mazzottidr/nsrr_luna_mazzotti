@@ -21,9 +21,14 @@ All EOG channels should have an explicit in the form {active}_{reference}: e.g. 
 
 ### ECG
 
+All EOG channels should have an explicit in the form {active}_{reference}: e.g. `ECG1_ECG2` or `ECG1_ECG3`
+
 | Channel    | Description             |
 | ---------- | ----------------------- |
 | `ECG`        | ECG, may be bipolar, e.g  ECG1 referenced to ECG2  |
+| `ECG1`      |  ECG1 |
+| `ECG2`      |  ECG2 |
+| `ECG3       |  ECG3 |
 
 ### EMG
 
