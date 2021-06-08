@@ -32,11 +32,11 @@ All ECG channels should have an explicit in the form {active}_{reference}: e.g. 
 
 ### EMG
 
-All EMG channels should have an explicit in the form {active}_{reference}: e.g. `lchin_cchin` or `lchin_rchin`
+All EMG channels should have an explicit in the form {active}_{reference}: e.g. `lchin_cchin` or `chin_Fpz`
 
 | Channel  | Description                                   |
 | -------- | --------------------------------------------- |
-| `EMG`         | Bipolar chin EMG, e.g. left chin referenced to center chin |
+| `chin`         | Chin EMG|
 | `lchin` `rchin` `cchin` | Chin EMG (left, right and central) |
 | `larm` `rarm` | Left/right arm EMG |
 | `lleg` `rleg` | Left/right leg EMG  |
