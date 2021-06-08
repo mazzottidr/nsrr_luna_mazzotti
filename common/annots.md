@@ -19,7 +19,7 @@
 | hypopnea\_obstructive      | Obstructive Hypopnea                    |
 |hypopnea\_central           |    Central Hypopnea                     |
 | desat                      | SpO2 desaturation                       |
-|   CheyneStokes\_ breathing |     Cheyne Stokes Breathing            |
+|   cheynestokes\_ breathing |     Cheyne Stokes Breathing            |
 | respiratory\_paradox       | Respiratory Paradox                     |
 
 
