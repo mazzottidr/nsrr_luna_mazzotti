@@ -3,7 +3,7 @@
 | -------------------------- | --------------------------------------- |
 | arousal\_standard          | Standard Arousal                        |
 | arousal\_spontaneous       | Spontaneous Arousal                     |                        
-| arousal\_respiratory       | RERA                                    |
+| arousal\_respiratory       | Respiratory Arousal                     |
 | arousal\_lm                | Limb movement arousal                   |
 | arousal\_plm               | Periodic limb movement arousal          |
 
@@ -19,7 +19,6 @@
 | hypopnea\_obstructive      | Obstructive Hypopnea                    |
 |hypopnea\_central           |    Central Hypopnea                     |
 | desat                      | SpO2 desaturation                       |
-| periodic\_breathing        | Periodic Breathing |
 |   CheyneStokes\_ breathing |     Cheyne Stokes Breathing            |
 | respiratory\_paradox       | Respiratory Paradox                     |
 
