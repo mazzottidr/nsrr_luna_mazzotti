@@ -1,4 +1,3 @@
-
 ### EEG
 
 All EEG channels should have an explicit in the form {active}_{reference}: e.g. `C3_M2` or `C3_LM`.
@@ -49,7 +48,7 @@ All EOG channels should have an explicit in the form {active}_{reference}: e.g. 
 | `ex_pres`   | Expiratory Pressure              |
 | `flow`      | Airflow                          |
 | `in_pres`   | Inspiratory Pressure             |
-| `leak`      | Leak                             |
+| `leak`      | CPAP Leak                        |
 | `nas_pres`  | Nasal Pressure                   |
 | `pap_flow`  | CPAP flow                        |
 | `pap_pres`  | CPAP pressure                    |
