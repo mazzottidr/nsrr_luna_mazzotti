@@ -28,7 +28,7 @@ All EOG channels should have an explicit in the form {active}_{reference}: e.g. 
 | `ECG`        | ECG, may be bipolar, e.g  ECG1 referenced to ECG2  |
 | `ECG1`      |  ECG1 |
 | `ECG2`      |  ECG2 |
-| `ECG3       |  ECG3 |
+| `ECG3`       |  ECG3 |
 
 ### EMG
 
