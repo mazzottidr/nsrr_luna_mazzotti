@@ -108,7 +108,7 @@
     },
     {
       "class": "DockerRequirement",
-      "dockerPull": "shyamlab/lunanap2:latest"
+      "dockerPull": "nsrr/nap:0.1"
     },
     {
       "class": "InitialWorkDirRequirement",
