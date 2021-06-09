@@ -62,7 +62,6 @@ All EMG channels should have an explicit in the form {active}_{reference}: e.g. 
 | `pap_vol`   | CPAP volume                      |
 | `pao2`      | PaO2                             |
 | `resprate`  | Respiratory Rate                 |
-| `RMI`       | Respiratory Mechanic Instability |
 | `snore`     | Snore                            |
 | `spo2`      | SpO2                             |
 | `sum`       | Sum                              |
