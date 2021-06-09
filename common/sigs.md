@@ -47,9 +47,7 @@ All EMG channels should have an explicit label in the form {active}_{reference}:
 | Channel   | Description                      |
 | --------- | -------------------------------- |
 | `abdomen`   | Abdominal Effort                 |
-| `altflow`   | Alternate flow channnel          |
 | `cap`       | Capnography                      |
-| `dif_pres`  | Differential Pressure            |
 | `etco2`     | End Tidal CO2                    |
 | `ex_pres`   | Expiratory Pressure              |
 | `flow`      | Airflow                          |
