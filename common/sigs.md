@@ -1,6 +1,6 @@
 ### EEG
 
-All EEG channels should have an explicit in the form {active}_{reference}: e.g. `C3_M2` or `C3_LM`.
+All EEG channels should have an explicit label in the form {active}_{reference}: e.g. `C3_M2` or `C3_LM`.
 
 | Channel | Description          |
 | ------- | -------------------- |
@@ -12,7 +12,7 @@ All EEG channels should have an explicit in the form {active}_{reference}: e.g. 
 
 ### EOG
 
-All EOG channels should have an explicit in the form {active}_{reference}: e.g. `E1_M2` or `E2_M2`.
+All EOG channels should have an explicit label in the form {active}_{reference}: e.g. `E1_M2` or `E2_M2`.
 
 | Channel | Description                |
 | ------- | -------------------------- |
@@ -21,7 +21,7 @@ All EOG channels should have an explicit in the form {active}_{reference}: e.g. 
 
 ### ECG
 
-All ECG channels should have an explicit in the form {active}_{reference}: e.g. `ECG1_ECG2` or `ECG1_ECG3`
+All ECG channels should have an explicit label in the form {active}_{reference}: e.g. `ECG1_ECG2` or `ECG1_ECG3`
 
 | Channel    | Description             |
 | ---------- | ----------------------- |
@@ -32,7 +32,7 @@ All ECG channels should have an explicit in the form {active}_{reference}: e.g. 
 
 ### EMG
 
-All EMG channels should have an explicit in the form {active}_{reference}: e.g. `lchin_cchin` or `chin_Fpz`
+All EMG channels should have an explicit label in the form {active}_{reference}: e.g. `lchin_cchin` or `chin_Fpz`
 
 | Channel  | Description                                   |
 | -------- | --------------------------------------------- |
