@@ -51,7 +51,6 @@ All EMG channels should have an explicit in the form {active}_{reference}: e.g. 
 | `cap`       | Capnography                      |
 | `dif_pres`  | Differential Pressure            |
 | `etco2`     | End Tidal CO2                    |
-| `etco2w`    | End Tidal CO2 Waveform           |
 | `ex_pres`   | Expiratory Pressure              |
 | `flow`      | Airflow                          |
 | `in_pres`   | Inspiratory Pressure             |
@@ -59,7 +58,6 @@ All EMG channels should have an explicit in the form {active}_{reference}: e.g. 
 | `nas_pres`  | Nasal Pressure                   |
 | `pap_flow`  | CPAP flow                        |
 | `pap_pres`  | CPAP pressure                    |
-| `pap_vol`   | CPAP volume                      |
 | `pao2`      | PaO2                             |
 | `resprate`  | Respiratory Rate                 |
 | `snore`     | Snore                            |
