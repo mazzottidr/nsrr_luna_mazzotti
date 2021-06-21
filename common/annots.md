@@ -1,7 +1,7 @@
 ### Arousals
 | Annotation                 | Definition                              |
 | -------------------------- | --------------------------------------- |
-| arousal\_standard          | Standard Arousal                        |
+| arousal\_standard          | Standard Arousal (all; not specific to subtype)                       |
 | arousal\_spontaneous       | Spontaneous Arousal                     |                        
 | arousal\_respiratory       | Respiratory Arousal                     |
 | arousal\_lm                | Limb movement arousal                   |
@@ -13,14 +13,14 @@
 | apnea\_obstructive         | Obstructive Apnea                       |
 | apnea\_central             | Central Apnea                           |
 | apnea\_mixed               | Mixed Apnea                             |
-| hypopnea                   | Hypopnea (unspecified airflow reduction)|
-| hypopnea30                 | Hypopnea (30 percent airflow reduction) |
-| hypopnea50                 | Hypopnea (50 percent airflow reduction) |
+| hypopnea                   | Hypopnea (unspecified airflow reduction; unspecified obstructive or central)|
+| hypopnea30                 | Hypopnea (>=30% airflow reduction) |
+| hypopnea50                 | Hypopnea (>=50% airflow reduction) |
 | hypopnea\_obstructive      | Obstructive Hypopnea                    |
-|hypopnea\_central           |    Central Hypopnea                     |
+|hypopnea\_central           | Central Hypopnea                     |
 | desat                      | SpO2 desaturation                       |
-|   cheynestokes\_ breathing |     Cheyne Stokes Breathing            |
-| respiratory\_paradox       | Respiratory Paradox                     |
+| cheynestokes\_ breathing | Cheyne Stokes Breathing            |
+| respiratory\_paradox       | Respiratory (abdominal-thorax) Paradox                     |
 
 
 ### Staging
@@ -60,6 +60,6 @@
 | Annotation                 | Definition                              |
 | -------------------------- | --------------------------------------- |
 | bradycardia                | Bradycardia                             |
-| tachycardia                | Tachycardia                             |
+| tachycardia                | Tachycardia (unspecified)                            |
 | tachycardia\_narrowcomplex | Narrow Complex Tachycardia              |
 
