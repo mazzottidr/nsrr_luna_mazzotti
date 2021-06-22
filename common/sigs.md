@@ -25,18 +25,20 @@ All ECG channels should have an explicit label in the form {active}_{reference}:
 
 | Channel    | Description             |
 | ---------- | ----------------------- |
-| `ECG`        | ECG, may be bipolar, e.g  ECG1 referenced to ECG2  |
-| `ECG1`      |  ECG1 electrode|
-| `ECG2`      |  ECG2 electrode|
-| `ECG3`       |  ECG3 electrode|
-
+| `ECG`        | ECG, Unspecified: may be bipolar (ECG1 referenced to ECG2); or collected to a common reference  |
+| `ECG1`      | ECG, Left subclavicular|
+| `ECG2`      | ECG, Right subclavicular|
+| `ECG3`       |ECG, Left rib cage or axillary|
+| 'Ref'|          |Common reference|
+| 'DHR'|    |Derived heart rate from ECG|
+ |'PTT'|    |Time between ECG and pulse waveform|
 ### EMG
 
 All EMG channels should have an explicit label in the form {active}_{reference}: e.g. `lchin_cchin` or `chin_Fpz`
 
 | Channel  | Description                                   |
 | -------- | --------------------------------------------- |
-| `chin`         | Chin EMG|
+| `chin`         | Chin EMG, Unspecified reference|
 | `lchin` `rchin` `cchin` | Chin EMG (left, right and central) |
 | `larm` `rarm` | Left/right arm EMG |
 | `lleg` `rleg` | Left/right leg EMG  |
@@ -49,45 +51,45 @@ All EMG channels should have an explicit label in the form {active}_{reference}:
 | `abdomen`   | Abdominal Effort                 |
 | `cap`       | Capnography                      |
 | `etco2`     | End Tidal CO2                    |
-| `ex_pres`   | Expiratory Pressure              |
-| `flow`      | Airflow                          |
-| `in_pres`   | Inspiratory Pressure             |
-| `leak`      | CPAP Leak                        |
-| `nas_pres`  | Nasal Pressure                   |
-| `pap_flow`  | CPAP flow                        |
-| `pap_pres`  | CPAP pressure                    |
-| `pao2`      | PaO2                             |
+|          |
+| `leak`      | CPAP Leak  (airflow leak during CPAP)                      |
+| `nas_pres_notransform`  | Nasal Pressure (airflow, without square wave transform)
+'nas_pres_transform' |        Nasal Pressure (airflow, with square wave transform)          |
+| `pap_flow`  | CPAP flow  (flow signal)                      |
+| `pap_pres`  | CPAP pressure (mmHg)                   |
+| 
+                           |
 | `resprate`  | Respiratory Rate                 |
-| `snore`     | Snore                            |
-| `spo2`      | SpO2                             |
-| `sum`       | Sum                              |
+| `snore`     | Snore  (sound or vibration)                          |
+| `spo2`      | Peripheral oxygen saturation                             |
+| `sum`       | Sum of abdomen and thorax efforts                            |
 | `tcco2`     | Transcutaneous CO2               |
-| `therm`     | Thermistor                       |
-| `thorax`    | Thoracic Effort                  |
-| `tvol`      | Tidal Volume                     |
+| `therm`     | Thermistor Airflow (nasal-oral)                       |
+| `thorax`    | Thoracic (Chest) Effort                  |
+|                  |
 
 ### Misc
 
 | Channel   | Description            |
 | --------- | ---------------------- |
-| `activity`  | Activity               |
-| `battery`   | Battery                |
-| `cap`       | Capnography            |
-| `DHR`       | Derived Heart Rate     |
-| `elevation` | Elevation              |
-| `grav`      | Gravity                |
-| `gravx`     | Gravity X              |
-| `gravy`     | Gravity Y              |
-| `hr`        | Heart Rate             |
-| `light`     | Light                  |
-| `man_pos` | Manual Position        |
+| `activity`  | Activity (movement from accelerometer)              |
+|            |
+|             |
+|   |
+| `elevation` | Elevation (body postion)             |
+| `grav`      | Gravity  (position)              |
+| `gravx`     | Gravity X  (position)            |
+| `gravy`     | Gravity Y  (positio)            |
+|            |
+| `light`     | Light (ambient)                 |
+| `man_pos` | Manual Position         |
 | `oxstat`    | Oximeter Status        |
-| `phase`     | Phase                  |
+|                 |
 | `pleth`     | Plethysmography        |
 | `plethstat` | Plethysmography Status |
 | `position`  | Body Position          |
-| `PTT`       | Pulse Transit Time     |
-| `pulse`     | Pulse                  |
-| `r_r`      | RR interval            |
+|    |
+| `pulse`     | Pulse   (heart rate from pulse oximeter)               |
+|             |
 
 
