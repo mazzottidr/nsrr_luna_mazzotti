@@ -2,9 +2,6 @@
 
 #Create a list of unique channel names for all files in a folder
 
-NAP_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
-
 ## --------------------------------------------------------------------------------
 ##
 ## Catch errors and clean up 
