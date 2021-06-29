@@ -5,6 +5,7 @@
 run_label=$1
 input_folder=$2
 output=${input_folder}/processed
+NAP_OUTPUT="FILE"
 
 mkdir -p $output
 
@@ -30,25 +31,12 @@ destrat $output/$run_label.db +HEADERS -r CH -v SR > $output/$run_label.headers.
 # Identify unique channel names and save
 cut -f 2 $output/$run_label.headers.txt | sort | uniq -u > $output/$run_label.unique_channel_names.txt
 
+echo "File $output/$run_label.unique_channel_names.txt has been created"
 
-# NAP_OUTPUT argument is helpful in use-cases (ex: Seven Bridges) where there is a need to write output to the home folder
-# if [[ ! -z "${NAP_OUTPUT}" ]]; then
-#   if [[ "${NAP_OUTPUT}" == "FILE" ]]; then
-#     echo "Creating NAP output as tar file with run name and start time info, in the home folder"
-#     output_file=~/${run}'_'${start_time}'_output.tar.gz'
-#     tar cvzf ${output_file} -C ${output} . && rm -R ${output}
-#   elif [[ "${NAP_OUTPUT}" == "DIRECTORY" ]]; then
-#     echo "Creating an output directory with run name and start time info, in the home folder"
-#     output_folder=~/${run}'_'${start_time}'_output'
-#     mkdir -p ${output_folder}
-#     mv ${output}* ${output_folder}
-#   else
-#     echo "Ignoring NAP_OUTPUT as it is not set to FILE or DIRECTORY"
-#   fi
-# fi
-
-
-
-# Move to home folder for output
+# Move to root folder for output
+echo "Moving to root folder"
 mv $output/$run_label.unique_channel_names.txt ./
+
+pwd
+ls *
 
