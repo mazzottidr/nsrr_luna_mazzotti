@@ -6,6 +6,7 @@ run_label=$1
 input_folder=$2
 output=${input_folder}/processed
 NAP_OUTPUT="FILE"
+LOG=log.txt
 
 mkdir -p $output
 
@@ -31,12 +32,12 @@ destrat $output/$run_label.db +HEADERS -r CH -v SR > $output/$run_label.headers.
 # Identify unique channel names and save
 cut -f 2 $output/$run_label.headers.txt | sort | uniq -u > $output/$run_label.unique_channel_names.txt
 
-echo "File $output/$run_label.unique_channel_names.txt has been created"
+echo "File $output/$run_label.unique_channel_names.txt has been created"  >> $LOG
 
 # Move to root folder for output
-echo "Moving to root folder"
+echo "Moving to root folder"  >> $LOG
 mv $output/$run_label.unique_channel_names.txt /
 
-pwd
-ls *
-
+pwd  >> $LOG
+ls *  >> $LOG
+mv $LOG /
