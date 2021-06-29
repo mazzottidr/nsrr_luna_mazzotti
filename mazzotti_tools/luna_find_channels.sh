@@ -29,3 +29,7 @@ destrat $output/$run_label.db +HEADERS -r CH -v SR > $output/$run_label.headers.
 
 # Identify unique channel names and save
 cut -f 2 $output/$run_label.headers.txt | sort | uniq -u > $output/$run_label.unique_channel_names.txt
+
+# Move to home folder for output
+mv $output/$run_label.unique_channel_names.txt .
+
