@@ -35,7 +35,7 @@ echo "File $output/$run_label.unique_channel_names.txt has been created"
 
 # Move to root folder for output
 echo "Moving to root folder"
-mv $output/$run_label.unique_channel_names.txt ./
+mv $output/$run_label.unique_channel_names.txt /
 
 pwd
 ls *
