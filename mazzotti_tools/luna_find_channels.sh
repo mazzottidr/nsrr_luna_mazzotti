@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Create a list of unique channel names for all file sin a folder
+#Create a list of unique channel names for all files in a folder
 start_time=$(date +%F_%H-%M-%S)
 run_label=$1
 input_folder=$2
@@ -8,7 +8,22 @@ output=${input_folder}/processed
 NAP_OUTPUT="FILE"
 LOG=${input_folder}/processed/log.txt
 
+
+dt=$(date '+%d/%m/%Y %H:%M:%S');
+
+echo "--------------------------------------------------------------------------------" 
+echo " process started: ${dt} "                                            
+echo "--------------------------------------------------------------------------------" 
+
+
 mkdir -p $output
+
+
+
+
+
+
+
 
 # create sample list s.lst if it does not already exist
 if [[ ! -f "${input_folder}/s.lst" ]]; then
