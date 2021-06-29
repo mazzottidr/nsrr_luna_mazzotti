@@ -1,28 +1,74 @@
 #!/bin/bash
 
 #Create a list of unique channel names for all files in a folder
+
+
 start_time=$(date +%F_%H-%M-%S)
-run_label=$1
-input_folder=$2
-output=${input_folder}/processed
 NAP_OUTPUT="FILE"
-LOG=${input_folder}/processed/log.txt
 
+## --------------------------------------------------------------------------------
+##
+## Arguments 
+##
+## --------------------------------------------------------------------------------
 
-dt=$(date '+%d/%m/%Y %H:%M:%S');
+#Run label
+run_label=$1
 
-echo "--------------------------------------------------------------------------------" 
-echo " process started: ${dt} "                                            
-echo "--------------------------------------------------------------------------------" 
+# Folder with input data
+input_folder=$2
 
-
+# Prepare output folder
+output=${input_folder}/processed
 mkdir -p $output
 
 
+## --------------------------------------------------------------------------------
+##
+## Log info
+##
+## --------------------------------------------------------------------------------
+
+mkdir -p ${input_folder}/log
+
+LOG=${input_folder}/log/run.log
+ERR=${input_folder}/log/run.err
+
+dt=$(date '+%d/%m/%Y %H:%M:%S');
+
+## --------------------------------------------------------------------------------
+##
+## Catch errors and clean up 
+##
+## --------------------------------------------------------------------------------
+
+set -e
+
+cleanup() {
+    echo >> $LOG
+    echo " *** encountered an error in NAP" >> $LOG
+    echo " *** see ${ERR} for more details" >> $LOG
+    echo >> $LOG
+
+    echo >> $ERR
+    echo " *** encountered an error in NAP *** " >> $ERR
+    echo >> $ERR
+}
+
+trap "cleanup" ERR
 
 
+echo "--------------------------------------------------------------------------------" > $LOG
+echo " process started: ${dt} "                                                         >> $LOG
+echo "--------------------------------------------------------------------------------" >> $LOG
 
+echo >> $LOG
 
+echo "  - input folder is ${input_folder}" >> $LOG
+echo "  - collating results in ${output}/" >> $LOG
+echo "  - writing LOG to ${LOG}" >> $LOG
+echo "  - writing stderr to ${ERR}" >> $LOG
+echo >> $LOG
 
 
 # create sample list s.lst if it does not already exist
@@ -40,41 +86,16 @@ fi
 
 
 # Run headers pipeline
-luna ${input_folder}/s.lst -s DESC
-luna ${input_folder}/s.lst -o $output/$run_label.db -s HEADERS
-destrat $output/$run_label.db +HEADERS -r CH -v SR > $output/$run_label.headers.txt
+echo "Running HEADERS..." >> $LOG
+luna ${input_folder}/s.lst -o $output/$run_label.db -s HEADERS 2>> $ERR
+destrat $output/$run_label.db +HEADERS -r CH -v SR > $output/$run_label.headers.txt 
 
 # Identify unique channel names and save
 cut -f 2 $output/$run_label.headers.txt | sort | uniq -u > $output/$run_label.unique_channel_names.txt
 
 echo "File $output/$run_label.unique_channel_names.txt has been created"  >> $LOG
 
-
-# Move to root folder for output
-#echo "Moving to root folder"  >> $LOG
-#mv $output/$run_label.unique_channel_names.txt ~/
-
-pwd  >> $LOG
-ls *  >> $LOG
-#mv $LOG ~/
-
-
-# NAP_OUTPUT argument is helpful in use-cases (ex: Seven Bridges) where there is a need to write output to the home folder
-if [[ ! -z "${NAP_OUTPUT}" ]]; then
-  if [[ "${NAP_OUTPUT}" == "FILE" ]]; then
-    echo "Creating NAP output as tar file with run name and start time info, in the home folder"
-    output_file=~/${run_label}'_'${start_time}'_output.tar.gz'
-    tar cvzf ${output_file} -C ${output} . && rm -R ${output}
-  elif [[ "${NAP_OUTPUT}" == "DIRECTORY" ]]; then
-    echo "Creating an output directory with run name and start time info, in the home folder"
-    output_folder=~/${run}'_'${start_time}'_output'
-    mkdir -p ${output_folder}
-    mv ${output}* ${output_folder}
-  else
-    echo "Ignoring NAP_OUTPUT as it is not set to FILE or DIRECTORY"
-  fi
-fi
-
-
-
-
+echo "Moving output to the home folder"
+mv $output/$run_label.unique_channel_names.txt .
+mv $LOG . # run.log
+mv $ERR . # run.err
