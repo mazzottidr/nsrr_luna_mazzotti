@@ -1,12 +1,12 @@
 #!/bin/bash
 
 #Create a list of unique channel names for all file sin a folder
-
+start_time=$(date +%F_%H-%M-%S)
 run_label=$1
 input_folder=$2
 output=${input_folder}/processed
 NAP_OUTPUT="FILE"
-LOG=log.txt
+LOG=${input_folder}/processed/log.txt
 
 mkdir -p $output
 
@@ -34,10 +34,32 @@ cut -f 2 $output/$run_label.headers.txt | sort | uniq -u > $output/$run_label.un
 
 echo "File $output/$run_label.unique_channel_names.txt has been created"  >> $LOG
 
+
 # Move to root folder for output
-echo "Moving to root folder"  >> $LOG
-mv $output/$run_label.unique_channel_names.txt ~/
+#echo "Moving to root folder"  >> $LOG
+#mv $output/$run_label.unique_channel_names.txt ~/
 
 pwd  >> $LOG
 ls *  >> $LOG
-mv $LOG ~/
+#mv $LOG ~/
+
+
+# NAP_OUTPUT argument is helpful in use-cases (ex: Seven Bridges) where there is a need to write output to the home folder
+if [[ ! -z "${NAP_OUTPUT}" ]]; then
+  if [[ "${NAP_OUTPUT}" == "FILE" ]]; then
+    echo "Creating NAP output as tar file with run name and start time info, in the home folder"
+    output_file=~/${run_label}'_'${start_time}'_output.tar.gz'
+    tar cvzf ${output_file} -C ${output} . && rm -R ${output}
+  elif [[ "${NAP_OUTPUT}" == "DIRECTORY" ]]; then
+    echo "Creating an output directory with run name and start time info, in the home folder"
+    output_folder=~/${run}'_'${start_time}'_output'
+    mkdir -p ${output_folder}
+    mv ${output}* ${output_folder}
+  else
+    echo "Ignoring NAP_OUTPUT as it is not set to FILE or DIRECTORY"
+  fi
+fi
+
+
+
+
