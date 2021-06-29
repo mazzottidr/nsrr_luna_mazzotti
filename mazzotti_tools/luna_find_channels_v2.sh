@@ -2,26 +2,6 @@
 
 #Create a list of unique channel names for all files in a folder
 
-## --------------------------------------------------------------------------------
-##
-## Catch errors and clean up 
-##
-## --------------------------------------------------------------------------------
-
-set -e
-
-cleanup() {
-    echo >> $LOG
-    echo " *** encountered an error in NAP" >> $LOG
-    echo " *** see ${ERR} for more details" >> $LOG
-    echo >> $LOG
-
-    echo >> $ERR
-    echo " *** encountered an error in NAP *** " >> $ERR
-    echo >> $ERR
-}
-
-trap "cleanup" ERR
 
 start_time=$(date +%F_%H-%M-%S)
 NAP_OUTPUT="FILE"
@@ -56,8 +36,27 @@ ERR=${input}/log/run.err
 
 dt=$(date '+%d/%m/%Y %H:%M:%S');
 
+## --------------------------------------------------------------------------------
+##
+## Catch errors and clean up 
+##
+## --------------------------------------------------------------------------------
 
-dt=$(date '+%d/%m/%Y %H:%M:%S');
+set -e
+
+cleanup() {
+    echo >> $LOG
+    echo " *** encountered an error in NAP" >> $LOG
+    echo " *** see ${ERR} for more details" >> $LOG
+    echo >> $LOG
+
+    echo >> $ERR
+    echo " *** encountered an error in NAP *** " >> $ERR
+    echo >> $ERR
+}
+
+trap "cleanup" ERR
+
 
 echo "--------------------------------------------------------------------------------" > $LOG
 echo " process started: ${dt} "                                                         >> $LOG
