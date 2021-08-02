@@ -92,8 +92,8 @@ destrat $output/$run_label.db +HEADERS -r CH -v SR > $output/$run_label.headers.
 
 # Identify unique channel names and save
 cut -f 2 $output/$run_label.headers.txt > $output/$run_label.cut.headers.txt
-sort $output/$run_label.cut.headers.txt > $output/$run_label.sorted.headers.txt
-uniq -u $output/$run_label.sorted.headers.txt > $output/$run_label.unique_channel_names.txt
+sort -u $output/$run_label.cut.headers.txt > $output/$run_label.unique_channel_names.txt
+#uniq -u $output/$run_label.sorted.headers.txt > $output/$run_label.unique_channel_names.txt
 
 echo "File $output/$run_label.unique_channel_names.txt has been created"  >> $LOG
 
