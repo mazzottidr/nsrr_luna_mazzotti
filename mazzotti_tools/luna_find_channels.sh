@@ -99,7 +99,9 @@ echo "File $output/$run_label.unique_channel_names.txt has been created"  >> $LO
 
 echo "Moving output to the home folder"
 mv $output/$run_label.unique_channel_names.txt .
-mv $output/*.headers.txt .
+mv $output/$run_label.headers.txt .
+mv $output/$run_label.sorted.headers.txt .
+mv $output/$run_label.cut.headers.txt .
 mv $output/$run_label.db .
 mv $LOG . # run.log
 mv $ERR . # run.err
