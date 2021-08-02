@@ -77,11 +77,11 @@ if [[ ! -f "${input_folder}/s.lst" ]]; then
  luna --build ${input_folder} | sed 's/\.\///g' > ${input_folder}/s.lst
  # check that this worked
  if [[ ! -f "${input_folder}/s.lst" ]]; then
-    echo "could not find sample-list ${input}, bailing"
+    echo "could not find sample-list ${input_folder}, bailing"
     exit 1
  fi
 else
- echo "Using existing sample list :  ${input}/s.lst " >> $LOG
+ echo "Using existing sample list :  ${input_folder}/s.lst " >> $LOG
 fi
 
 

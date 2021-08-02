@@ -1,6 +1,7 @@
 alias	abdomen
 alias	airflow_nc
 alias	airflow_th
+alias	airflow_un
 alias	body_position
 alias	thorax
 alias	pap_flow
@@ -27,7 +28,7 @@ alias	eog_e1_m
 alias	eog_e2
 alias	eog_e1_m
 alias	et_co2
-alias	ex__pres
+alias	ex_pres
 alias	hr
 alias	in_pres
 alias	emg_leg_l
