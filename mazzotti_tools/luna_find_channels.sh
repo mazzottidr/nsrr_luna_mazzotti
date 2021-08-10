@@ -91,17 +91,17 @@ luna ${input_folder}/s.lst -o $output/$run_label.db -s HEADERS 2>> $ERR
 destrat $output/$run_label.db +HEADERS -r CH -v SR > $output/$run_label.headers.txt 
 
 # Identify unique channel names and save
-cut -f 2 $output/$run_label.headers.txt > $output/$run_label.cut.headers.txt
-sort -u $output/$run_label.cut.headers.txt > $output/$run_label.unique_channel_names.txt
+#cut -f 2 $output/$run_label.headers.txt > $output/$run_label.cut.headers.txt
+#sort -u $output/$run_label.cut.headers.txt > $output/$run_label.unique_channel_names.txt
 #uniq -u $output/$run_label.sorted.headers.txt > $output/$run_label.unique_channel_names.txt
 
 echo "File $output/$run_label.unique_channel_names.txt has been created"  >> $LOG
 
 echo "Moving output to the home folder"
 mv $output/$run_label.unique_channel_names.txt .
-mv $output/$run_label.headers.txt .
+#mv $output/$run_label.headers.txt .
 #mv $output/$run_label.sorted.headers.txt .
-mv $output/$run_label.cut.headers.txt .
-mv $output/$run_label.db .
+#mv $output/$run_label.cut.headers.txt .
+#mv $output/$run_label.db .
 mv $LOG . # run.log
 mv $ERR . # run.err
