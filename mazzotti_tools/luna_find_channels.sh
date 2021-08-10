@@ -98,8 +98,13 @@ destrat $output/$run_label.db +HEADERS -r CH -v SR > $output/$run_label.headers.
 #echo "File $output/$run_label.unique_channel_names.txt has been created"  >> $LOG
 
 echo "Moving output to the home folder"
+<<<<<<< HEAD
 #mv $output/$run_label.unique_channel_names.txt .
 mv $output/$run_label.headers.txt .
+=======
+mv $output/$run_label.unique_channel_names.txt .
+#mv $output/$run_label.headers.txt .
+>>>>>>> 3508d764302f5711e1579d898ca356c197286498
 #mv $output/$run_label.sorted.headers.txt .
 #mv $output/$run_label.cut.headers.txt .
 #mv $output/$run_label.db .
