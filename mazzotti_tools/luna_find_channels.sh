@@ -95,7 +95,7 @@ destrat $output/$run_label.db +HEADERS -r CH -v SR > $output/$run_label.headers.
 #sort -u $output/$run_label.cut.headers.txt > $output/$run_label.unique_channel_names.txt
 #uniq -u $output/$run_label.sorted.headers.txt > $output/$run_label.unique_channel_names.txt
 
-echo "File $output/$run_label.unique_channel_names.txt has been created"  >> $LOG
+#echo "File $output/$run_label.unique_channel_names.txt has been created"  >> $LOG
 
 echo "Moving output to the home folder"
 #mv $output/$run_label.unique_channel_names.txt .
