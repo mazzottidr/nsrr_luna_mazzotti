@@ -92,7 +92,7 @@ fi
 
 # Run headers pipeline
 echo "Running HEADERS..." >> $LOG
-luna ${input_folder}/s.lst -exclude=$bad_samples -o ${output_root}/results/$run_label.db -s HEADERS 2>> $ERR
+luna ${input_folder}/s.lst exclude=$bad_samples -o ${output_root}/results/$run_label.db -s HEADERS 2>> $ERR
 destrat ${output_root}/results/$run_label.db +HEADERS -r CH -v SR > ${output_root}/results/$run_label.headers.txt 
 
 echo "File ${output_root}/results/$run_label.headers.txt has been created"  >> $LOG
