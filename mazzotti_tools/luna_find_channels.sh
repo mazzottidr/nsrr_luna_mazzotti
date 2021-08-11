@@ -24,7 +24,7 @@ bad_samples=$3
 # Prepare output folder
 output_root=output
 mkdir -p $output_root
-mkdir -p ${output_root}/desc
+mkdir -p ${output_root}/tmp
 mkdir -p ${output_root}/results
 
 
@@ -78,10 +78,10 @@ echo >> $LOG
 
 # create sample list s.lst if it does not already exist
 if [[ ! -f "${input_folder}/s.lst" ]]; then
- echo "Compiling sample list :  ${input_folder}/s.lst " >> $LOG
- luna --build ${input_folder} | sed 's/\.\///g' > ${input_folder}/s.lst
+ echo "Compiling sample list :  ${output_root}/tmp/s.lst " >> $LOG
+ luna --build ${input_folder} | sed 's/\.\///g' > ${output_root}/tmp/s.lst
  # check that this worked
- if [[ ! -f "${input_folder}/s.lst" ]]; then
+ if [[ ! -f "${output_root}/tmp/s.lst" ]]; then
     echo "could not find sample-list ${input_folder}, bailing"
     exit 1
  fi
@@ -92,7 +92,7 @@ fi
 
 # Run headers pipeline
 echo "Running HEADERS..." >> $LOG
-luna ${input_folder}/s.lst exclude=$bad_samples -o ${output_root}/results/$run_label.db -s HEADERS 2>> $ERR
+luna ${output_root}/tmp/s.lst exclude=$bad_samples -o ${output_root}/results/$run_label.db -s HEADERS 2>> $ERR
 destrat ${output_root}/results/$run_label.db +HEADERS -r CH -v SR > ${output_root}/results/$run_label.headers.txt 
 
 echo "File ${output_root}/results/$run_label.headers.txt has been created"  >> $LOG
