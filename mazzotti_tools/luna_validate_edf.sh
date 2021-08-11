@@ -98,8 +98,12 @@ do
     prefix="${filename%.*}"
     
     luna $f -s DESC > $output/${prefix}.DESC.txt 2>> $ERR
+    if [ $? -eq 0 ]; then
+        echo "File $output/${prefix}.txt has been created"  >> $LOG
+    else
+        echo "Something went wrong with file: $f"
+    fi
     
-    echo "File  $output/${prefix}.txt has been created"  >> $LOG
 done
 
 #echo "Moving output to the home folder"
