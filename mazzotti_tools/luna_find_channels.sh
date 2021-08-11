@@ -84,10 +84,10 @@ luna --build ${input_folder} | sed 's/\.\///g' > ${output_root}/tmp/s.lst
 
 # Run headers pipeline
 echo "Running HEADERS..." >> $LOG
-luna ${output_root}/tmp/s.lst exclude=$bad_samples -o ${output_root}/results/$run_label.db -s HEADERS 2>> $ERR
+luna ${output_root}/tmp/s.lst exclude=$bad_samples -o ${output_root}/tmp/$run_label.db -s HEADERS 2>> $ERR
 
 echo "Running destrat..." >> $LOG
-destrat ${output_root}/results/$run_label.db +HEADERS -r CH -v SR > ${output_root}/results/$run_label.headers.txt 
+destrat ${output_root}/tmp/$run_label.db +HEADERS -r CH -v SR > ${output_root}/results/$run_label.headers.txt 
 
 echo "File ${output_root}/results/$run_label.headers.txt has been created"  >> $LOG
 

@@ -93,7 +93,7 @@ FILES=$input_folder/*
 
 for f in $FILES
 do
-    echo "Processing $f ..." #>> $LOG
+    echo "Processing $f ..." >> $LOG
     
     filename="${f##*/}"
     prefix="${filename%.*}"
@@ -104,6 +104,7 @@ do
     else
         rm ${output_root}/desc/${prefix}.DESC.txt
         echo "Something went wrong with file: $f - adding to ${output_root}/results/${run_label}.bad_samples.txt"
+        echo "Something went wrong with file: $f - adding to ${output_root}/results/${run_label}.bad_samples.txt" >> $LOG
         echo $prefix >> ${output_root}/results/${run_label}.bad_samples.txt
     fi
 done
@@ -113,7 +114,7 @@ echo "Creating sample list..."
 luna --build ${input_folder} | sed 's/\.\///g' > ${output_root}/results/${run_label}.sample.lst
 
 echo "Creating bad samples list..."
-echo ${run_label}.bad_samples.txt
+echo "${run_label}.bad_samples.txt
 
 echo "Preparing output"
 mv ${output_root}/results/${run_label}.sample.lst . # sample list
