@@ -1,10 +1,9 @@
 #!/bin/bash
 
-#Create a list of unique channel names for all files in a folder
-
+# Run descriptives in a per sample basis, and create s.lst with valid files only
 
 start_time=$(date +%F_%H-%M-%S)
-NAP_OUTPUT="FILE"
+
 
 ## --------------------------------------------------------------------------------
 ##
@@ -19,7 +18,7 @@ run_label=$1
 input_folder=$2
 
 # Prepare output folder
-output=${input_folder}/processed
+output=output
 mkdir -p $output
 
 
@@ -29,10 +28,10 @@ mkdir -p $output
 ##
 ## --------------------------------------------------------------------------------
 
-mkdir -p ${input_folder}/log
+mkdir -p ${output}/log
 
-LOG=${input_folder}/log/run.log
-ERR=${input_folder}/log/run.err
+LOG=${output}/log/run.log
+ERR=${output}/log/run.err
 
 dt=$(date '+%d/%m/%Y %H:%M:%S');
 
@@ -46,12 +45,12 @@ set -e
 
 cleanup() {
     echo >> $LOG
-    echo " *** encountered an error in NAP" >> $LOG
+    echo " *** encountered an error" >> $LOG
     echo " *** see ${ERR} for more details" >> $LOG
     echo >> $LOG
 
     echo >> $ERR
-    echo " *** encountered an error in NAP *** " >> $ERR
+    echo " *** encountered an error *** " >> $ERR
     echo >> $ERR
 }
 
@@ -88,13 +87,26 @@ echo >> $LOG
 # Run DESC, one by one
 echo "Running DESC..." >> $LOG
 
+luna --build ${input_folder} | sed 's/\.\///g' > ${input_folder}/s.lst
+FILES=$input_folder/*
 
-FILES=${input_folder}/*
 
-luna ${input_folder}/s.lst -o $output/$run_label.db -s HEADERS 2>> $ERR
-destrat $output/$run_label.db +HEADERS -r CH -v SR > $output/$run_label.headers.txt 
+for f in $FILES
+do
+    echo "Processing $f ..." #>> $LOG
+    
+    filename="${f##*/}"
+    prefix="${filename%.*}"
+    
+    luna $f -s DESC > $output/${prefix}.DESC.txt 2>> $ERR
+    
+    echo "File  $output/${prefix}.txt has been created"  >> $LOG
+done
 
-echo "File  $output/$run_label.headers.txt has been created"  >> $LOG
+
+
+
+
 
 echo "Moving output to the home folder"
 mv $output/$run_label.headers.txt . #output
