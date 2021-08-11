@@ -89,21 +89,21 @@ echo >> $LOG
 echo "Running DESC..." >> $LOG
 
 FILES=$input_folder/*
-
+echo > ${output_root}/results/${run_label}.bad_samples.txt
 
 for f in $FILES
 do
-    echo "Processing $f ..." >> $LOG
-    
     filename="${f##*/}"
     prefix="${filename%.*}"
     
-    luna $f -s DESC > ${output_root}/desc/${prefix}.DESC.txt 2>> $ERR
+    echo "Processing $filename ..." >> $LOG
+    
+    luna $input_folder/$filename -s DESC > ${output_root}/desc/${prefix}.DESC.txt 2>> $ERR
     if [ $? -eq 0 ]; then
         echo "File ${output_root}/desc/${prefix}.txt has been created"  >> $LOG
     else
         rm ${output_root}/desc/${prefix}.DESC.txt
-        echo "Something went wrong with file: $f - adding to ${output_root}/results/${run_label}.bad_samples.txt"
+        echo "Something went wrong with file: $f - adding this sample to ${output_root}/results/${run_label}.bad_samples.txt"
         echo "Something went wrong with file: $f - adding to ${output_root}/results/${run_label}.bad_samples.txt" >> $LOG
         echo $prefix >> ${output_root}/results/${run_label}.bad_samples.txt
     fi
