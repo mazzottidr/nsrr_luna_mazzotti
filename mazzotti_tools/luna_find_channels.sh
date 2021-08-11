@@ -47,7 +47,7 @@ dt=$(date '+%d/%m/%Y %H:%M:%S');
 ##
 ## --------------------------------------------------------------------------------
 
-set -e
+#set -e
 
 cleanup() {
     echo >> $LOG
@@ -76,23 +76,17 @@ echo "  - writing stderr to ${ERR}" >> $LOG
 echo >> $LOG
 
 
-# create sample list s.lst if it does not already exist
-if [[ ! -f "${input_folder}/s.lst" ]]; then
- echo "Compiling sample list :  ${output_root}/tmp/s.lst " >> $LOG
- luna --build ${input_folder} | sed 's/\.\///g' > ${output_root}/tmp/s.lst
- # check that this worked
- if [[ ! -f "${output_root}/tmp/s.lst" ]]; then
-    echo "could not find sample-list ${input_folder}, bailing"
-    exit 1
- fi
-else
- echo "Using existing sample list :  ${input_folder}/s.lst " >> $LOG
-fi
+
+echo "Compiling sample list :  ${output_root}/tmp/s.lst " >> $LOG
+luna --build ${input_folder} | sed 's/\.\///g' > ${output_root}/tmp/s.lst
+
 
 
 # Run headers pipeline
 echo "Running HEADERS..." >> $LOG
 luna ${output_root}/tmp/s.lst exclude=$bad_samples -o ${output_root}/results/$run_label.db -s HEADERS 2>> $ERR
+
+echo "Running destrat..." >> $LOG
 destrat ${output_root}/results/$run_label.db +HEADERS -r CH -v SR > ${output_root}/results/$run_label.headers.txt 
 
 echo "File ${output_root}/results/$run_label.headers.txt has been created"  >> $LOG
