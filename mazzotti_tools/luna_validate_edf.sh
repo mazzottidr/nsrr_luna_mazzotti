@@ -41,7 +41,7 @@ dt=$(date '+%d/%m/%Y %H:%M:%S');
 ##
 ## --------------------------------------------------------------------------------
 
-set -e
+#set -e
 
 cleanup() {
     echo >> $LOG
@@ -87,7 +87,6 @@ echo >> $LOG
 # Run DESC, one by one
 echo "Running DESC..." >> $LOG
 
-luna --build ${input_folder} | sed 's/\.\///g' > ${input_folder}/s.lst
 FILES=$input_folder/*
 
 
