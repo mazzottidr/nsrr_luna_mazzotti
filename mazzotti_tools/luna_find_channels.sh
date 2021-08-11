@@ -18,9 +18,14 @@ run_label=$1
 # Folder with input data
 input_folder=$2
 
+# Bad samples
+bad_samples=$3
+
 # Prepare output folder
-output=${input_folder}/processed
-mkdir -p $output
+output_root=output
+mkdir -p $output_root
+mkdir -p ${output_root}/desc
+mkdir -p ${output_root}/results
 
 
 ## --------------------------------------------------------------------------------
@@ -29,10 +34,10 @@ mkdir -p $output
 ##
 ## --------------------------------------------------------------------------------
 
-mkdir -p ${input_folder}/log
+mkdir -p ${output_root}/log
 
-LOG=${input_folder}/log/run.log
-ERR=${input_folder}/log/run.err
+LOG=${output_root}/log/${run_label}.run.log
+ERR=${output_root}/log/${run_label}.run.err
 
 dt=$(date '+%d/%m/%Y %H:%M:%S');
 
@@ -87,12 +92,12 @@ fi
 
 # Run headers pipeline
 echo "Running HEADERS..." >> $LOG
-luna ${input_folder}/s.lst -o $output/$run_label.db -s HEADERS 2>> $ERR
-destrat $output/$run_label.db +HEADERS -r CH -v SR > $output/$run_label.headers.txt 
+luna ${input_folder}/s.lst -exclude=$bad_samples -o ${output_root}/results/$run_label.db -s HEADERS 2>> $ERR
+destrat ${output_root}/results/$run_label.db +HEADERS -r CH -v SR > ${output_root}/results/$run_label.headers.txt 
 
-echo "File  $output/$run_label.headers.txt has been created"  >> $LOG
+echo "File ${output_root}/results/$run_label.headers.txt has been created"  >> $LOG
 
 echo "Moving output to the home folder"
-mv $output/$run_label.headers.txt . #output
+mv ${output_root}/results/$run_label.headers.txt . #output
 mv $LOG . # run.log
 mv $ERR . # run.err

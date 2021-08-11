@@ -31,8 +31,8 @@ mkdir -p ${output_root}/results
 
 mkdir -p ${output_root}/log
 
-LOG=${output_root}/log/run.log
-ERR=${output_root}/log/run.err
+LOG=${output_root}/log/${run_label}.run.log
+ERR=${output_root}/log/${run_label}.run.err
 
 dt=$(date '+%d/%m/%Y %H:%M:%S');
 
