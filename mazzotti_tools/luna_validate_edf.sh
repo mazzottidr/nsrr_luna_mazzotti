@@ -89,7 +89,6 @@ echo >> $LOG
 echo "Running DESC..." >> $LOG
 
 FILES=$input_folder/*
-echo > ${output_root}/results/${run_label}.bad_samples.txt
 
 for f in $FILES
 do
