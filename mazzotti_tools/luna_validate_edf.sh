@@ -101,6 +101,7 @@ do
     if [ $? -eq 0 ]; then
         echo "File ${output_root}/results/${prefix}.txt has been created"  >> $LOG
     else
+        rm ${output_root}/results/${prefix}.DESC.txt
         echo "Something went wrong with file: $f"
     fi
     
