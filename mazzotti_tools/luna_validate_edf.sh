@@ -18,9 +18,9 @@ run_label=$1
 input_folder=$2
 
 # Prepare output folder
-output=output
-mkdir -p $output
-
+output_root=output
+mkdir -p $output_root
+mkdir -p ${output_root}/results
 
 ## --------------------------------------------------------------------------------
 ##
@@ -28,10 +28,10 @@ mkdir -p $output
 ##
 ## --------------------------------------------------------------------------------
 
-mkdir -p ${output}/log
+mkdir -p ${output_root}/log
 
-LOG=${output}/log/run.log
-ERR=${output}/log/run.err
+LOG=${output_root}/log/run.log
+ERR=${output_root}/log/run.err
 
 dt=$(date '+%d/%m/%Y %H:%M:%S');
 
@@ -64,7 +64,7 @@ echo "--------------------------------------------------------------------------
 echo >> $LOG
 
 echo "  - input folder is ${input_folder}" >> $LOG
-echo "  - collating results in ${output}/" >> $LOG
+#echo "  - collating results in ${output}/" >> $LOG
 echo "  - writing LOG to ${LOG}" >> $LOG
 echo "  - writing stderr to ${ERR}" >> $LOG
 echo >> $LOG
@@ -97,9 +97,9 @@ do
     filename="${f##*/}"
     prefix="${filename%.*}"
     
-    luna $f -s DESC > $output/${prefix}.DESC.txt 2>> $ERR
+    luna $f -s DESC > ${output_root}/results/${prefix}.DESC.txt 2>> $ERR
     if [ $? -eq 0 ]; then
-        echo "File $output/${prefix}.txt has been created"  >> $LOG
+        echo "File ${output_root}/results/${prefix}.txt has been created"  >> $LOG
     else
         echo "Something went wrong with file: $f"
     fi
