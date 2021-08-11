@@ -114,7 +114,7 @@ echo "Creating sample list..."
 luna --build ${input_folder} | sed 's/\.\///g' > ${output_root}/results/${run_label}.sample.lst
 
 echo "Creating bad samples list..."
-echo "${run_label}.bad_samples.txt
+echo "${run_label}.bad_samples.txt"
 
 echo "Preparing output"
 mv ${output_root}/results/${run_label}.sample.lst . # sample list
