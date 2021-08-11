@@ -102,12 +102,7 @@ do
     echo "File  $output/${prefix}.txt has been created"  >> $LOG
 done
 
-
-
-
-
-
-echo "Moving output to the home folder"
-mv $output/$run_label.headers.txt . #output
-mv $LOG . # run.log
-mv $ERR . # run.err
+#echo "Moving output to the home folder"
+#mv $output/$run_label.headers.txt . #output
+#mv $LOG . # run.log
+#mv $ERR . # run.err
