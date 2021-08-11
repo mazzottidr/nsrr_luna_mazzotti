@@ -20,6 +20,7 @@ input_folder=$2
 # Prepare output folder
 output_root=output
 mkdir -p $output_root
+mkdir -p ${output_root}/desc
 mkdir -p ${output_root}/results
 
 ## --------------------------------------------------------------------------------
@@ -97,17 +98,25 @@ do
     filename="${f##*/}"
     prefix="${filename%.*}"
     
-    luna $f -s DESC > ${output_root}/results/${prefix}.DESC.txt 2>> $ERR
+    luna $f -s DESC > ${output_root}/desc/${prefix}.DESC.txt 2>> $ERR
     if [ $? -eq 0 ]; then
-        echo "File ${output_root}/results/${prefix}.txt has been created"  >> $LOG
+        echo "File ${output_root}/desc/${prefix}.txt has been created"  >> $LOG
     else
-        rm ${output_root}/results/${prefix}.DESC.txt
-        echo "Something went wrong with file: $f"
+        rm ${output_root}/desc/${prefix}.DESC.txt
+        echo "Something went wrong with file: $f - adding to ${output_root}/results/${run_label}.bad_samples.txt"
+        echo $prefix >> ${output_root}/results/${run_label}.bad_samples.txt
     fi
-    
 done
 
-#echo "Moving output to the home folder"
-#mv $output/$run_label.headers.txt . #output
-#mv $LOG . # run.log
-#mv $ERR . # run.err
+# Create outputs
+echo "Creating sample list..."
+luna --build ${input_folder} | sed 's/\.\///g' > ${output_root}/results/${run_label}.sample.lst
+
+echo "Creating bad samples list..."
+echo ${run_label}.bad_samples.txt
+
+echo "Preparing output"
+mv ${output_root}/results/${run_label}.sample.lst . # sample list
+mv ${output_root}/results/${run_label}.bad_samples.txt . # sample list
+mv $LOG . # run.log
+mv $ERR . # run.err
