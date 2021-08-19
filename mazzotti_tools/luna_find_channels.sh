@@ -84,7 +84,15 @@ luna --build ${input_folder} | sed 's/\.\///g' > ${output_root}/tmp/s.lst
 
 # Run headers pipeline
 echo "Running HEADERS..." >> $LOG
-luna ${output_root}/tmp/s.lst exclude=$bad_samples -o ${output_root}/tmp/$run_label.db -s HEADERS 2>> $ERR
+if [ -z "$3" ]
+then
+    echo "No bad samples filed supplied"
+    luna ${output_root}/tmp/s.lst -o ${output_root}/tmp/$run_label.db -s HEADERS 2>> $ERR
+else
+    echo "Using ${bad_samples}"
+    luna ${output_root}/tmp/s.lst exclude=$bad_samples -o ${output_root}/tmp/$run_label.db -s HEADERS 2>> $ERR
+fi
+
 
 echo "Running destrat..." >> $LOG
 destrat ${output_root}/tmp/$run_label.db +HEADERS -r CH -v SR > ${output_root}/results/$run_label.headers.txt 
